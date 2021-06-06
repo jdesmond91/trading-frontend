@@ -1,36 +1,36 @@
+const getSecurity = (securities, secId) => {
+	return securities.find((security) => security.id === secId)
+}
+
+const getIntradayPrice = (price) => {
+	return Math.floor(Math.random() * (price + 5 - price) + price)
+}
+
 const initialSecurities = [
 	{
 		id: 1,
 		name: 'Royal Bank',
 		ticker: 'RY',
-		price: 120,
+		price: getIntradayPrice(120),
 	},
 	{
 		id: 2,
 		name: 'Apple',
 		ticker: 'AAPL',
-		price: 200,
+		price: getIntradayPrice(200),
 	},
 	{
 		id: 3,
 		name: 'IBM',
 		ticker: 'IBM',
-		price: 75,
+		price: getIntradayPrice(75),
 	},
 	{
 		id: 4,
 		name: 'Microsoft',
 		ticker: 'MFST',
-		price: 150,
+		price: getIntradayPrice(150),
 	},
 ]
 
-const getSecurity = (securities, secId) => {
-	return securities.find((security) => security.id === secId)
-}
-
-const getSecurityPrice = (price) => {
-	return Math.floor(Math.random() * (price + 5 - price) + price)
-}
-
-export default { initialSecurities, getSecurity, getSecurityPrice }
+export default { getSecurity, getIntradayPrice, initialSecurities }
