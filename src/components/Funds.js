@@ -16,7 +16,13 @@ const FundsForm = ({ addFunds }) => {
 		<div>
 			<form onSubmit={handleFundsSubmit}>
 				<label htmlFor='funds'>Add Funds</label>
-				<input type='number' name='funds' id='funds' onChange={handleValueChange} />
+				<input
+					type='number'
+					name='funds'
+					id='funds'
+					autoComplete='off'
+					onChange={handleValueChange}
+				/>
 				<button id='submit' type='submit'>
 					Add Funds
 				</button>
