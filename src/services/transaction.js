@@ -84,8 +84,8 @@ const getPositions = (transactions) => {
 	return positions
 }
 
-const getAveragePrice = (price, transactions) => {
-	return securityService.getSecurityPrice(price) * getPositionQuantity(transactions)
+const getAveragePrice = (price, quantity) => {
+	return price * quantity
 }
 
 const getTransactionTotalValue = (securities, positions) => {
@@ -101,5 +101,6 @@ const getTransactionTotalValue = (securities, positions) => {
 export default {
 	initializeTransactions,
 	getPositions,
+	getAveragePrice,
 	getTransactionTotalValue,
 }
