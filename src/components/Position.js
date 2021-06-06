@@ -21,7 +21,7 @@ const Position = ({ securities, positions }) => {
 				const totalValue = transactionService.getAveragePrice(currentPrice, position.quantity)
 
 				return (
-					<React.Fragment key={position.id}>
+					<React.Fragment key={position.secId}>
 						<div>{security.name}</div>
 						<div>{position.quantity}</div>
 						<div>{currentPrice}</div>
