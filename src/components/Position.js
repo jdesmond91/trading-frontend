@@ -3,9 +3,7 @@ import { useState } from 'react'
 import securityService from '../services/security'
 import transactionService from '../services/transaction'
 
-const Position = ({ securities, transactions }) => {
-	const [positions, setPositions] = useState(transactionService.getPositions(transactions))
-
+const Position = ({ securities, positions }) => {
 	return (
 		<div className='grid'>
 			<div></div>
@@ -14,21 +12,20 @@ const Position = ({ securities, transactions }) => {
 			<div>Total Value</div>
 
 			{positions.map((position) => {
-				const key = position.key
-				const value = position.value
+				const security = securities.find((security) => security.id === position.secId)
 
-				const security = securities.find((security) => security.id === key)
-				const securityTransactions = transactions.get(security.id)
-				const quantity = transactionService.getPositionQuantity(securityTransactions)
+				// return a random intraday price
 				const currentPrice = securityService.getSecurityPrice(security.price)
-				const averagePrice = quantity * currentPrice
+
+				// calculate today's total value based on the quantity and the intraday price
+				const totalValue = position.quantity * currentPrice
 
 				return (
-					<React.Fragment key={key}>
+					<React.Fragment key={position.id}>
 						<div>{security.name}</div>
-						<div>{quantity}</div>
+						<div>{position.quantity}</div>
 						<div>{currentPrice}</div>
-						<div>{averagePrice}</div>
+						<div>{totalValue}</div>
 					</React.Fragment>
 				)
 			})}

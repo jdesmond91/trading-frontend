@@ -25,8 +25,12 @@ const initialSecurities = [
 	},
 ]
 
+const getSecurity = (securities, secId) => {
+	return securities.find((security) => security.id === secId)
+}
+
 const getSecurityPrice = (price) => {
 	return Math.floor(Math.random() * (price + 5 - price) + price)
 }
 
-export default { initialSecurities, getSecurityPrice }
+export default { initialSecurities, getSecurity, getSecurityPrice }
