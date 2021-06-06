@@ -46,6 +46,39 @@ const initializeTransactions = () => {
 		},
 	])
 
+	transactions.set(4, [
+		{
+			id: 7,
+			type: 'BUY',
+			quantity: 1,
+			price: 200,
+		},
+		{
+			id: 8,
+			type: 'BUY',
+			quantity: 1,
+			price: 200,
+		},
+		{
+			id: 9,
+			type: 'BUY',
+			quantity: 1,
+			price: 200,
+		},
+		{
+			id: 10,
+			type: 'BUY',
+			quantity: 1,
+			price: 200,
+		},
+		{
+			id: 11,
+			type: 'BUY',
+			quantity: 1,
+			price: 250,
+		},
+	])
+
 	return transactions
 }
 
@@ -74,11 +107,8 @@ const getPositions = (transactions) => {
 	// convert map to array
 	const transactionArray = [...transactions].map(([key, value]) => ({ key, value }))
 
-	// initialize id
-	let id = 1
-
 	const positions = transactionArray.map((transaction) => {
-		return { id: id++, secId: transaction.key, quantity: getPositionQuantity(transaction.value) }
+		return { secId: transaction.key, quantity: getPositionQuantity(transaction.value) }
 	})
 
 	return positions
@@ -89,13 +119,16 @@ const getAveragePrice = (price, quantity) => {
 }
 
 const getTransactionTotalValue = (securities, positions) => {
-	return positions.map((position) => {
-		const { price } = securityService.getSecurity(securities, position.secId)
-		return position.quantity * price
-	})
-	// .reduce((total, acc) => {
-	// 	total + acc
-	// })
+	try {
+		return positions
+			.map((position) => {
+				const { price } = securityService.getSecurity(securities, position.secId)
+				return position.quantity * price
+			})
+			.reduce((total, acc) => total + acc)
+	} catch (error) {
+		return 0
+	}
 }
 
 export default {
