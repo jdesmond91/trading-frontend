@@ -3,7 +3,7 @@ const getSecurity = (securities, secId) => {
 }
 
 const getIntradayPrice = (price) => {
-	return Math.floor(Math.random() * (price + 5 - price) + price)
+	return Math.floor(Math.random() * (price + 10 - price) + price)
 }
 
 const initialSecurities = [
