@@ -11,6 +11,18 @@ const initialSecurities = [
 		ticker: 'AAPL',
 		price: 200,
 	},
+	{
+		id: 3,
+		name: 'IBM',
+		ticker: 'IBM',
+		price: 75,
+	},
+	{
+		id: 4,
+		name: 'Microsoft',
+		ticker: 'MFST',
+		price: 150,
+	},
 ]
 
 const getSecurityPrice = (price) => {
