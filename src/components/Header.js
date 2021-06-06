@@ -1,7 +1,10 @@
 const Header = () => {
 	return (
 		<header>
-			<nav>This is a nav</nav>
+			<nav className='nav flex'>
+				<a href=''>Funds</a>
+				<a href=''>Portfolio</a>
+			</nav>
 		</header>
 	)
 }
