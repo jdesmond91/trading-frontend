@@ -22,7 +22,7 @@ const Portfolio = () => {
 
 	const addFunds = (value) => {
 		const currentCash = cash
-		const newTotal = cash + value
+		const newTotal = currentCash + value
 		setCash(newTotal)
 	}
 
