@@ -3,28 +3,26 @@ import { useState } from 'react'
 import securityService from '../services/security'
 import transactionService from '../services/transaction'
 
-const Position = ({ securities }) => {
-	const securityTransactions = transactionService.initializeTransactions()
-	const [positions, setPositions] = useState(transactionService.getPositions(securityTransactions))
+const Position = ({ securities, transactions }) => {
+	const [positions, setPositions] = useState(transactionService.getPositions(transactions))
 
 	return (
 		<div className='grid'>
-			<div>Security Name</div>
+			<div></div>
 			<div>Quantity</div>
-			<div>Current Price</div>
+			<div>Today's Price</div>
 			<div>Total Value</div>
 
 			{positions.map((position) => {
 				const key = position.key
 				const value = position.value
-				//console.log(key, value)
-				const security = securities.find((security) => security.id === key)
-				//console.log('security', security)
 
-				const transactions = securityTransactions.get(security.id)
+				const security = securities.find((security) => security.id === key)
+				const securityTransactions = transactions.get(security.id)
+				const quantity = transactionService.getPositionQuantity(securityTransactions)
 				const currentPrice = securityService.getSecurityPrice(security.price)
-				const quantity = transactionService.getPositionQuantity(transactions)
 				const averagePrice = quantity * currentPrice
+
 				return (
 					<React.Fragment key={key}>
 						<div>{security.name}</div>
