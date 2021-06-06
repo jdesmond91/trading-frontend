@@ -21,7 +21,9 @@ const Portfolio = () => {
 	}
 
 	const addFunds = (value) => {
-		setCash(value)
+		const currentCash = cash
+		const newTotal = cash + value
+		setCash(newTotal)
 	}
 
 	const handleNetWorth = () => {
@@ -31,11 +33,16 @@ const Portfolio = () => {
 
 	useEffect(() => {
 		handleNetWorth()
-	}, [])
+	}, [cash])
 
 	return (
 		<>
-			<div>{netWorth}</div>
+			<div>
+				<div>Cash</div>
+				<div>{cash}</div>
+				<div>Net Worth</div>
+				<div>{netWorth}</div>
+			</div>
 			<FundsForm addFunds={addFunds} />
 			<div className='total'>
 				<div className='totalButtons'>
