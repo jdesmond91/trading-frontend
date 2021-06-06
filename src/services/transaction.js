@@ -1,10 +1,10 @@
 import securityService from './security'
 
 const initializeTransactions = () => {
-	const securityTransactions = new Map()
+	const transactions = new Map()
 
-	// key is sec id
-	securityTransactions.set(1, [
+	// key is secId
+	transactions.set(1, [
 		{
 			id: 1,
 			type: 'BUY',
@@ -31,7 +31,7 @@ const initializeTransactions = () => {
 		},
 	])
 
-	securityTransactions.set(2, [
+	transactions.set(2, [
 		{
 			id: 5,
 			type: 'BUY',
@@ -46,12 +46,16 @@ const initializeTransactions = () => {
 		},
 	])
 
-	return securityTransactions
+	return transactions
 }
 
-const getTransactionQuantity = (transactions, type) => {
+const getSecurityTransactions = (transactions, secId) => {
+	return transactions.get(secId)
+}
+
+const getTransactionQuantity = (securityTransactions, type) => {
 	try {
-		return transactions
+		return securityTransactions
 			.filter((t) => t.type === type)
 			.map((t) => t.quantity)
 			.reduce((total, acc) => total + acc)
@@ -60,18 +64,42 @@ const getTransactionQuantity = (transactions, type) => {
 	}
 }
 
-const getPositions = (transactions) => {
-	return [...transactions].map(([key, value]) => ({ key, value }))
-}
-
-const getPositionQuantity = (transactions) => {
-	const buyQuantity = getTransactionQuantity(transactions, 'BUY')
-	const sellQuantity = getTransactionQuantity(transactions, 'SELL')
+const getPositionQuantity = (securityTransactions) => {
+	const buyQuantity = getTransactionQuantity(securityTransactions, 'BUY')
+	const sellQuantity = getTransactionQuantity(securityTransactions, 'SELL')
 	return buyQuantity - sellQuantity
 }
 
-const getAveragePrice = (transactions, price) => {
+const getPositions = (transactions) => {
+	// convert map to array
+	const transactionArray = [...transactions].map(([key, value]) => ({ key, value }))
+
+	// initialize id
+	let id = 1
+
+	const positions = transactionArray.map((transaction) => {
+		return { id: id++, secId: transaction.key, quantity: getPositionQuantity(transaction.value) }
+	})
+
+	return positions
+}
+
+const getAveragePrice = (price, transactions) => {
 	return securityService.getSecurityPrice(price) * getPositionQuantity(transactions)
 }
 
-export default { initializeTransactions, getPositions, getPositionQuantity }
+const getTransactionTotalValue = (securities, positions) => {
+	return positions.map((position) => {
+		const { price } = securityService.getSecurity(securities, position.secId)
+		return position.quantity * price
+	})
+	// .reduce((total, acc) => {
+	// 	total + acc
+	// })
+}
+
+export default {
+	initializeTransactions,
+	getPositions,
+	getTransactionTotalValue,
+}
