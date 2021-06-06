@@ -15,10 +15,10 @@ const Position = ({ securities, positions }) => {
 				const security = securities.find((security) => security.id === position.secId)
 
 				// return a random intraday price
-				const currentPrice = securityService.getSecurityPrice(security.price)
+				const currentPrice = security.price
 
 				// calculate today's total value based on the quantity and the intraday price
-				const totalValue = position.quantity * currentPrice
+				const totalValue = transactionService.getAveragePrice(currentPrice, position.quantity)
 
 				return (
 					<React.Fragment key={position.id}>
