@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FundsForm from './Funds'
 import Position from './Position'
 import Security from './Security'
@@ -25,15 +25,19 @@ const Portfolio = () => {
 	}
 
 	const handleNetWorth = () => {
-		const total = cash + transactionService.getTransactionTotalValue
+		const total = cash + transactionService.getTransactionTotalValue(securities, positions)
 		setNetWorth(total)
 	}
 
+	useEffect(() => {
+		handleNetWorth()
+	}, [])
+
 	return (
 		<>
+			<div>{netWorth}</div>
 			<FundsForm addFunds={addFunds} />
 			<div className='total'>
-				{cash}
 				<div className='totalButtons'>
 					<button onClick={handleIncrease}>Increase</button>
 					<button onClick={handleDecrease}>Decrease</button>
