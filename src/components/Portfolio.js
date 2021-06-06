@@ -7,7 +7,7 @@ import transactionService from '../services/transaction'
 
 const Portfolio = () => {
 	const [netWorth, setNetWorth] = useState(0)
-	const [cash, setCash] = useState(0)
+	const [cash, setCash] = useState(1000)
 	const [securities, setSecurities] = useState(securityService.initialSecurities)
 	const [transactions, setTransactions] = useState(transactionService.initializeTransactions())
 	const [positions, setPositions] = useState(transactionService.getPositions(transactions))
