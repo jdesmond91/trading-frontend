@@ -2,8 +2,11 @@ import React from 'react'
 import { useState } from 'react'
 import securityService from '../services/security'
 import transactionService from '../services/transaction'
+import { useSelector, useDispatch } from 'react-redux'
 
-const Position = ({ securities, positions }) => {
+const Position = ({ positions }) => {
+	const securities = useSelector((state) => state.securities.value)
+
 	return (
 		<div className='grid'>
 			<div></div>
