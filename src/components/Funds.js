@@ -1,15 +1,18 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addCash } from '../redux/cashSlice'
 
 const FundsForm = ({ addFunds }) => {
 	const [value, setValue] = useState(0)
+	const dispatch = useDispatch()
 
-	const handleValueChange = (event) => {
+	const handleCashValueChange = (event) => {
 		setValue(parseInt(event.target.value))
 	}
 
 	const handleFundsSubmit = (event) => {
 		event.preventDefault()
-		addFunds(value)
+		dispatch(addCash(value))
 	}
 
 	return (
@@ -21,7 +24,7 @@ const FundsForm = ({ addFunds }) => {
 					name='funds'
 					id='funds'
 					autoComplete='off'
-					onChange={handleValueChange}
+					onChange={handleCashValueChange}
 				/>
 				<button id='submit' type='submit'>
 					Add Funds

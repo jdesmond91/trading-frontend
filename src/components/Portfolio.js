@@ -8,25 +8,12 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const Portfolio = () => {
 	const [netWorth, setNetWorth] = useState(0)
-	const [cash, setCash] = useState(1000)
+	//const [cash, setCash] = useState(1000)
 	//const [securities, setSecurities] = useState(securityService.initialSecurities)
+	const cash = useSelector((state) => state.cash.value)
 	const securities = useSelector((state) => state.securities.value)
 	const [transactions, setTransactions] = useState(transactionService.initializeTransactions())
 	const [positions, setPositions] = useState(transactionService.getPositions(transactions))
-
-	const handleIncrease = () => {
-		setCash(cash + 1)
-	}
-
-	const handleDecrease = () => {
-		setCash(cash - 1)
-	}
-
-	const addFunds = (value) => {
-		const currentCash = cash
-		const newTotal = currentCash + value
-		setCash(newTotal)
-	}
 
 	const handleNetWorth = () => {
 		const total = cash + transactionService.getTransactionTotalValue(securities, positions)
@@ -45,13 +32,7 @@ const Portfolio = () => {
 				<div>Net Worth</div>
 				<div>{netWorth}</div>
 			</div>
-			<FundsForm addFunds={addFunds} />
-			<div className='total'>
-				<div className='totalButtons'>
-					<button onClick={handleIncrease}>Increase</button>
-					<button onClick={handleDecrease}>Decrease</button>
-				</div>
-			</div>
+			<FundsForm />
 			<Position securities={securities} positions={positions} />
 			<Security />
 		</>
