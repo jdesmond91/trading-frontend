@@ -1,10 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
-import securityService from '../services/security'
 import transactionService from '../services/transaction'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-const Position = ({ positions }) => {
+const Position = () => {
+	const positions = useSelector((state) => state.positions.value)
 	const securities = useSelector((state) => state.securities.value)
 
 	return (
