@@ -1,10 +1,10 @@
 import securityService from './security'
 
 const initializeTransactions = () => {
-	const transactions = new Map()
+	let transactions = []
 
-	// key is secId
-	transactions.set(1, [
+	// each index is a hardcoded secId from a single security in initial securities list
+	transactions[1] = [
 		{
 			id: 1,
 			type: 'BUY',
@@ -29,9 +29,9 @@ const initializeTransactions = () => {
 			quantity: 1,
 			price: 120,
 		},
-	])
+	]
 
-	transactions.set(2, [
+	transactions[2] = [
 		{
 			id: 5,
 			type: 'BUY',
@@ -44,9 +44,9 @@ const initializeTransactions = () => {
 			quantity: 1,
 			price: 250,
 		},
-	])
+	]
 
-	transactions.set(4, [
+	transactions[4] = [
 		{
 			id: 7,
 			type: 'BUY',
@@ -77,13 +77,9 @@ const initializeTransactions = () => {
 			quantity: 1,
 			price: 250,
 		},
-	])
+	]
 
 	return transactions
-}
-
-const getSecurityTransactions = (transactions, secId) => {
-	return transactions.get(secId)
 }
 
 const getTransactionQuantity = (securityTransactions, type) => {
@@ -104,14 +100,10 @@ const getPositionQuantity = (securityTransactions) => {
 }
 
 const getPositions = (transactions) => {
-	// convert map to array
-	const transactionArray = [...transactions].map(([key, value]) => ({ key, value }))
-
-	const positions = transactionArray.map((transaction) => {
-		return { secId: transaction.key, quantity: getPositionQuantity(transaction.value) }
-	})
-
-	return positions
+	return transactions.map((transaction, index) => ({
+		secId: index,
+		quantity: getPositionQuantity(transaction),
+	}))
 }
 
 const getAveragePrice = (price, quantity) => {
