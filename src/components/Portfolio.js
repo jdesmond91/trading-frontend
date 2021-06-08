@@ -4,11 +4,13 @@ import Position from './Position'
 import Security from './Security'
 import securityService from '../services/security'
 import transactionService from '../services/transaction'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Portfolio = () => {
 	const [netWorth, setNetWorth] = useState(0)
 	const [cash, setCash] = useState(1000)
-	const [securities, setSecurities] = useState(securityService.initialSecurities)
+	//const [securities, setSecurities] = useState(securityService.initialSecurities)
+	const securities = useSelector((state) => state.securities.value)
 	const [transactions, setTransactions] = useState(transactionService.initializeTransactions())
 	const [positions, setPositions] = useState(transactionService.getPositions(transactions))
 
