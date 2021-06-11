@@ -83,27 +83,28 @@ const initializeTransactions = () => {
 }
 
 const getTransactionQuantity = (securityTransactions, type) => {
-	try {
-		return securityTransactions
-			.filter((t) => t.type === type)
-			.map((t) => t.quantity)
-			.reduce((total, acc) => total + acc)
-	} catch (error) {
-		return 0
+	const filteredTransactions = securityTransactions.filter((t) => t.type === type)
+	if (filteredTransactions !== null && filteredTransactions.length > 0) {
+		return filteredTransactions.map((t) => t.quantity).reduce((total, acc) => total + acc)
 	}
+
+	return 0
 }
 
 const getPositionQuantity = (securityTransactions) => {
 	const buyQuantity = getTransactionQuantity(securityTransactions, 'BUY')
 	const sellQuantity = getTransactionQuantity(securityTransactions, 'SELL')
-	return buyQuantity - sellQuantity
+	const totalQuantity = buyQuantity - sellQuantity
+	return totalQuantity > 0 ? totalQuantity : 0
 }
 
 const getPositions = (transactions) => {
-	return transactions.map((transaction, index) => ({
-		secId: index,
-		quantity: getPositionQuantity(transaction),
-	}))
+	return transactions
+		.map((transaction, index) => ({
+			secId: index,
+			quantity: getPositionQuantity(transaction),
+		}))
+		.filter((t) => t.quantity > 0)
 }
 
 const getAveragePrice = (price, quantity) => {
@@ -126,6 +127,7 @@ const getTransactionTotalValue = (securities, positions) => {
 export default {
 	initializeTransactions,
 	getPositions,
+	getPositionQuantity,
 	getAveragePrice,
 	getTransactionTotalValue,
 }
