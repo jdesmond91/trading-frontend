@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const netWorthSlice = createSlice({
-	name: 'cash',
+	name: 'netWorth',
 	initialState: {
 		value: 0,
 	},
