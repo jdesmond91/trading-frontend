@@ -8,9 +8,10 @@ export const Order = () => {
 
 	// sort the array based on security name
 	const sortedSecurities = [...securities].sort((a, b) => a.name.localeCompare(b.name))
-	const defaultValue = sortedSecurities[0].id
+	const defaultValue = sortedSecurities[0]
 
-	const [selected, setSelected] = useState('')
+	const [selected, setSelected] = useState(defaultValue)
+	const [quantity, setQuantity] = useState(0)
 
 	const newTransaction = {
 		secId: 3,
@@ -52,7 +53,7 @@ export const Order = () => {
 					<label htmlFor='orderQuantiy'>
 						How many shares of {selected.ticker} do you want to buy?
 					</label>
-					<input type='text' name='orderQuantity' id='orderQuantity' />
+					<input type='text' name='orderQuantity' id='orderQuantity' value={quantity} />
 					<input type='submit' name='submit' className='submitOrder' value='Create Order' />
 				</form>
 			</div>
