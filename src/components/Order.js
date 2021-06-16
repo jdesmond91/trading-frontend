@@ -5,15 +5,17 @@ import { useSelector, useDispatch } from 'react-redux'
 
 export const Order = () => {
 	const securities = useSelector((state) => state.securities.value)
+	const cash = useSelector((state) => state.cash.value)
 
 	// sort the array based on security name
 	const sortedSecurities = [...securities].sort((a, b) => a.name.localeCompare(b.name))
 	const defaultValue = sortedSecurities[0]
 
+	// state variables for selected security and purchase quantity
 	const [selected, setSelected] = useState(defaultValue)
 	const [quantity, setQuantity] = useState(0)
 
-	const newTransaction = {
+	const fakeTransaction = {
 		secId: 3,
 		id: 20,
 		type: 'BUY',
@@ -24,7 +26,7 @@ export const Order = () => {
 	const dispatch = useDispatch()
 
 	const addTransaction = () => {
-		dispatch(addTransactions(newTransaction))
+		dispatch(addTransactions(fakeTransaction))
 	}
 
 	const handleSelectChange = (event) => {
@@ -32,9 +34,25 @@ export const Order = () => {
 		setSelected(selectedSecurity)
 	}
 
+	const handleQuantityChange = (event) => {
+		setQuantity(parseInt(event.target.value))
+	}
+
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		alert(`You have selected ${selected}`)
+		//alert(`You have selected ${selected}`)
+		if (cash - selected.price * quantity > 0) {
+			const newTransaction = {
+				secId: selected.id,
+				id: 20,
+				type: 'BUY',
+				quantity: quantity,
+				price: selected.price,
+			}
+			dispatch(addTransactions(newTransaction))
+		} else {
+			alert('You do not have enough cash!')
+		}
 	}
 
 	return (
@@ -53,7 +71,16 @@ export const Order = () => {
 					<label htmlFor='orderQuantiy'>
 						How many shares of {selected.ticker} do you want to buy?
 					</label>
-					<input type='text' name='orderQuantity' id='orderQuantity' value={quantity} />
+					<input
+						type='number'
+						name='orderQuantity'
+						id='orderQuantity'
+						value={quantity}
+						onChange={handleQuantityChange}
+					/>
+					<div>Total Cash: {cash}</div>
+					<div>Total Purchase Price: {selected.price * quantity}</div>
+					<div>Cash After Purchase: {cash - selected.price * quantity}</div>
 					<input type='submit' name='submit' className='submitOrder' value='Create Order' />
 				</form>
 			</div>
