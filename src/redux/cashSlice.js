@@ -12,10 +12,13 @@ export const cashSlice = createSlice({
 		addCash: (state, action) => {
 			state.value += action.payload
 		},
+		substractCash: (state, action) => {
+			state.value -= action.payload
+		},
 	},
 })
 
 // Action creators are generated for each case reducer function
-export const { setCash, addCash } = cashSlice.actions
+export const { setCash, addCash, substractCash } = cashSlice.actions
 
 export default cashSlice.reducer

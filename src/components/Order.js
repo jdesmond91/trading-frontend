@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import securityService from '../services/security'
 import { addTransactions } from '../redux/transactionsSlice'
+import { substractCash } from '../redux/cashSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 export const Order = () => {
@@ -50,6 +51,7 @@ export const Order = () => {
 				price: selected.price,
 			}
 			dispatch(addTransactions(newTransaction))
+			dispatch(substractCash(selected.price * quantity))
 		} else {
 			alert('You do not have enough cash!')
 		}
