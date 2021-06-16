@@ -5,7 +5,7 @@ const Header = () => {
 		<header>
 			<nav className='nav flex'>
 				<Link to='/'>Portfolio</Link>
-				<Link to='/test'>Test</Link>
+				<Link to='/order'>Order</Link>
 			</nav>
 		</header>
 	)

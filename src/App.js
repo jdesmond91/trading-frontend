@@ -1,6 +1,7 @@
 import './App.css'
 import Header from './components/Header'
 import Portfolio from './components/Portfolio'
+import Order from './components/Order'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const Test = () => <div>Hello</div>
@@ -15,8 +16,8 @@ const App = () => {
 						<Route exact path='/'>
 							<Portfolio />
 						</Route>
-						<Route path='/test'>
-							<Test />
+						<Route path='/order'>
+							<Order />
 						</Route>
 					</Switch>
 				</div>
