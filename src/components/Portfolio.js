@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import FundsForm from './Funds'
 import Position from './Position'
-import Security from './Security'
+import Order from './Order'
 import transactionService from '../services/transaction'
+import positionService from '../services/positions'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNetWorth } from '../redux/netWorthSlice'
 import { setPositions } from '../redux/positionsSlice'
+import { setCash } from '../redux/cashSlice'
 
 const Portfolio = () => {
 	// get from redux store
@@ -21,6 +23,14 @@ const Portfolio = () => {
 		const total = cash + transactionService.getTransactionTotalValue(securities, positions)
 		dispatch(setNetWorth(total))
 	}
+
+	useEffect(() => {
+		const fetchData = async () => {
+			dispatch(setCash(await positionService.getCash()))
+		}
+
+		fetchData()
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(setPositions(transactionService.getPositions(transactions)))
@@ -40,7 +50,7 @@ const Portfolio = () => {
 			</div>
 			<FundsForm />
 			<Position />
-			<Security />
+			<Order />
 		</>
 	)
 }
