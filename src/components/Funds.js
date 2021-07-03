@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addCash } from '../redux/cashSlice'
+import positionService from '../services/positions'
 
 const FundsForm = ({ addFunds }) => {
 	const [value, setValue] = useState(0)
@@ -10,9 +11,12 @@ const FundsForm = ({ addFunds }) => {
 		setValue(parseInt(event.target.value))
 	}
 
-	const handleFundsSubmit = (event) => {
+	const handleFundsSubmit = async (event) => {
 		event.preventDefault()
-		dispatch(addCash(value))
+		const res = await positionService.depositCash(value)
+		if (res.id) {
+			dispatch(addCash(value))
+		}
 	}
 
 	return (
