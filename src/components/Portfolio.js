@@ -33,12 +33,24 @@ const Portfolio = () => {
 	}, [dispatch])
 
 	useEffect(() => {
-		dispatch(setPositions(transactionService.getPositions(transactions)))
-	}, [transactions])
+		const fetchData = async () => {
+			dispatch(setNetWorth(await positionService.getNetWorth()))
+		}
+
+		fetchData()
+	}, [dispatch])
+
+	// useEffect(() => {
+	// 	dispatch(setPositions(transactionService.getPositions(transactions)))
+	// }, [transactions])
 
 	useEffect(() => {
-		handleNetWorth()
-	}, [cash, positions])
+		const fetchData = async () => {
+			dispatch(setPositions(await positionService.getPositions()))
+		}
+
+		fetchData()
+	}, [dispatch])
 
 	return (
 		<>
