@@ -2,9 +2,8 @@ import './App.css'
 import Header from './components/Header'
 import Portfolio from './components/Portfolio'
 import Order from './components/Order'
+import Transaction from './components/Transaction'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
-const Test = () => <div>Hello</div>
 
 const App = () => {
 	return (
@@ -18,6 +17,9 @@ const App = () => {
 						</Route>
 						<Route path='/order'>
 							<Order />
+						</Route>
+						<Route path='/transaction'>
+							<Transaction />
 						</Route>
 					</Switch>
 				</div>
