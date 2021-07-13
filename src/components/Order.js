@@ -1,91 +1,97 @@
 import React, { useState } from 'react'
-import securityService from '../services/security'
-import { addTransactions } from '../redux/transactionsSlice'
-import { substractCash } from '../redux/cashSlice'
+import Select from 'react-select'
+import orderService from '../services/orders'
+import positionService from '../services/positions'
+import transactionService from '../services/transactions'
 import { useSelector, useDispatch } from 'react-redux'
+import { setCash } from '../redux/cashSlice'
+import { setTransactions } from '../redux/transactionsSlice'
+import { setPositions } from '../redux/positionsSlice'
 
-export const Order = () => {
+const Order = () => {
 	const securities = useSelector((state) => state.securities.value)
 	const cash = useSelector((state) => state.cash.value)
 
-	// sort the array based on security name
-	const sortedSecurities = [...securities].sort((a, b) => a.name.localeCompare(b.name))
-	const defaultValue = sortedSecurities[0]
+	const [selected, setSelected] = useState(null)
+	const [quantity, setQuantity] = useState(1)
 
-	// state variables for selected security and purchase quantity
-	const [selected, setSelected] = useState(defaultValue)
-	const [quantity, setQuantity] = useState(0)
-
-	const fakeTransaction = {
-		secId: 3,
-		id: 20,
-		type: 'BUY',
-		quantity: 1,
-		price: 250,
-	}
+	let orderTotal
 
 	const dispatch = useDispatch()
 
-	const addTransaction = () => {
-		dispatch(addTransactions(fakeTransaction))
-	}
+	let options = securities.map((security) => {
+		return { value: security.id, label: security.name }
+	})
 
-	const handleSelectChange = (event) => {
-		const selectedSecurity = securityService.getSecurity(securities, parseInt(event.target.value))
+	const handleChange = (selectedOption) => {
+		// console.log(selectedOption.value)
+		// console.log('handleChangeSecurities', securities)
+		const selectedSecurity = securities.find((security) => security.id === selectedOption.value)
+		// console.log('handleChangeSelectedSec', selectedSecurity)
 		setSelected(selectedSecurity)
+		// console.log('handleChange', selected)
 	}
 
 	const handleQuantityChange = (event) => {
 		setQuantity(parseInt(event.target.value))
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
-		//alert(`You have selected ${selected}`)
-		if (cash - selected.price * quantity > 0) {
-			const newTransaction = {
-				secId: selected.id,
-				id: 20,
-				type: 'BUY',
-				quantity: quantity,
-				price: selected.price,
+
+		const orderType = event.target.value
+		let order
+
+		if (selected) {
+			if (orderType === 'BUY') {
+				if (cash - selected.price * quantity > 0) {
+					order = {
+						type: 'BUY',
+						securityId: selected.id,
+						quantity: quantity,
+					}
+				} else {
+					alert('You do not have enough cash!')
+				}
+			} else {
+				order = {
+					type: 'SELL',
+					securityId: selected.id,
+					quantity: quantity,
+				}
 			}
-			dispatch(addTransactions(newTransaction))
-			dispatch(substractCash(selected.price * quantity))
+
+			try {
+				const newOrder = await orderService.createOrder(order)
+				dispatch(setCash(await positionService.getCash()))
+				dispatch(setPositions(await positionService.getPositions()))
+				dispatch(setTransactions(await transactionService.getTransactions()))
+				console.log('newOrder', newOrder)
+			} catch (err) {
+				alert('Unable to complete order')
+			}
 		} else {
-			alert('You do not have enough cash!')
+			alert('Please select a security')
 		}
 	}
 
 	return (
-		<div className='order flex column'>
-			<div>Hello</div>
-			<button onClick={addTransaction}>Add Transaction</button>
-			<div>
-				<form className='orderForm flex column' onSubmit={handleSubmit}>
-					<select name='securities' id='security-select' onChange={handleSelectChange}>
-						{sortedSecurities.map((security) => (
-							<option value={security.id} key={security.id}>
-								{security.name}
-							</option>
-						))}
-					</select>
-					<label htmlFor='orderQuantiy'>
-						How many shares of {selected.ticker} do you want to buy?
-					</label>
-					<input
-						type='number'
-						name='orderQuantity'
-						id='orderQuantity'
-						value={quantity}
-						onChange={handleQuantityChange}
-					/>
-					<div>Total Cash: {cash}</div>
-					<div>Total Purchase Price: {selected.price * quantity}</div>
-					<div>Cash After Purchase: {cash - selected.price * quantity}</div>
-					<input type='submit' name='submit' className='submitOrder' value='Create Order' />
-				</form>
-			</div>
+		<div>
+			<Select options={options} isSearchable={true} onChange={handleChange} />
+			<input
+				type='number'
+				name='orderQuantity'
+				id='orderQuantity'
+				value={quantity}
+				onChange={handleQuantityChange}
+				min='1'
+			/>
+			<button onClick={handleSubmit} value='BUY'>
+				BUY
+			</button>
+			<button onClick={handleSubmit} value='SELL'>
+				SELL
+			</button>
 		</div>
 	)
 }
