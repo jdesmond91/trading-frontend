@@ -12,31 +12,31 @@ const Portfolio = () => {
 	const netWorth = useSelector((state) => state.netWorth.value)
 	const cash = useSelector((state) => state.cash.value)
 
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 
-	useEffect(() => {
-		const fetchData = async () => {
-			dispatch(setCash(await positionService.getCash()))
-		}
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		dispatch(setCash(await positionService.getCash()))
+	// 	}
 
-		fetchData()
-	}, [dispatch, cash])
+	// 	fetchData()
+	// }, [dispatch, cash])
 
-	useEffect(() => {
-		const fetchData = async () => {
-			dispatch(setNetWorth(await positionService.getNetWorth()))
-		}
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		dispatch(setNetWorth(await positionService.getNetWorth()))
+	// 	}
 
-		fetchData()
-	}, [dispatch, cash])
+	// 	fetchData()
+	// }, [dispatch, cash])
 
-	useEffect(() => {
-		const fetchData = async () => {
-			dispatch(setPositions(await positionService.getPositions()))
-		}
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		dispatch(setPositions(await positionService.getPositions()))
+	// 	}
 
-		fetchData()
-	}, [dispatch, cash])
+	// 	fetchData()
+	// }, [dispatch, cash])
 
 	return (
 		<>
