@@ -8,6 +8,20 @@ import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 
+const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit }) => {
+	return selected ? (
+		<div>
+			<div>Order Type: {orderType}</div>
+			<div>Security: {selected.ticker}</div>
+			<div>Security Price: {selected.price}</div>
+			<div>Quantity: {quantity}</div>
+			<div>Total: {selected.price * quantity}</div>
+			<div>Cash Available to Trade: {cash}</div>
+			<button onClick={handleSubmit}>Submit Order</button>
+		</div>
+	) : null
+}
+
 const Order = () => {
 	const securities = useSelector((state) => state.securities.value)
 	const cash = useSelector((state) => state.cash.value)
@@ -15,32 +29,44 @@ const Order = () => {
 
 	const [selected, setSelected] = useState(null)
 	const [quantity, setQuantity] = useState(1)
+	const [orderType, setOrderType] = useState('BUY')
+	const [message, setMessage] = useState('')
 
-	let orderTotal
-
-	const dispatch = useDispatch()
-
-	let options = securities.map((security) => {
+	const securityOptions = securities.map((security) => {
 		return { value: security.id, label: security.name }
 	})
 
-	const handleChange = (selectedOption) => {
-		// console.log(selectedOption.value)
-		// console.log('handleChangeSecurities', securities)
-		const selectedSecurity = securities.find((security) => security.id === selectedOption.value)
-		// console.log('handleChangeSelectedSec', selectedSecurity)
-		setSelected(selectedSecurity)
-		// console.log('handleChange', selected)
+	const orderOptions = [
+		{
+			value: 'BUY',
+			label: 'BUY',
+		},
+		{
+			value: 'SELL',
+			label: 'SELL',
+		},
+	]
+
+	const handleSecurityChange = (selectedOption) => {
+		if (selectedOption) {
+			const selectedSecurity = securities.find((security) => security.id === selectedOption.value)
+			setSelected(selectedSecurity)
+		} else {
+			setSelected(null)
+		}
 	}
 
 	const handleQuantityChange = (event) => {
 		setQuantity(parseInt(event.target.value))
 	}
 
-	const handleSubmit = async (event) => {
+	const handleOrderChange = (selectedOption) => {
+		setOrderType(selectedOption.value)
+	}
+
+	const handleSubmit = (event) => {
 		event.preventDefault()
 
-		const orderType = event.target.value
 		let order
 
 		if (selected) {
@@ -54,7 +80,7 @@ const Order = () => {
 				} else {
 					alert('You do not have enough cash!')
 				}
-			} else {
+			} else if (orderType === 'SELL') {
 				const position = positions.find((position) => position.security.name === selected.name)
 				if (quantity <= position.quantity) {
 					order = {
@@ -65,6 +91,8 @@ const Order = () => {
 				} else {
 					alert('You do not own enough positions to sell!')
 				}
+			} else {
+				alert('Please choose buy or sell!')
 			}
 
 			console.log(order)
@@ -85,7 +113,13 @@ const Order = () => {
 
 	return (
 		<div>
-			<Select options={options} isSearchable={true} onChange={handleChange} />
+			<Select
+				options={securityOptions}
+				isSearchable={true}
+				onChange={handleSecurityChange}
+				isClearable={true}
+			/>
+			<Select options={orderOptions} defaultValue={orderOptions[0]} onChange={handleOrderChange} />
 			<input
 				type='number'
 				name='orderQuantity'
@@ -94,12 +128,14 @@ const Order = () => {
 				onChange={handleQuantityChange}
 				min='1'
 			/>
-			<button onClick={handleSubmit} value='BUY'>
-				BUY
-			</button>
-			<button onClick={handleSubmit} value='SELL'>
-				SELL
-			</button>
+			<div>{message}</div>
+			<OrderPreview
+				selected={selected}
+				quantity={quantity}
+				cash={cash}
+				orderType={orderType}
+				handleSubmit={handleSubmit}
+			/>
 		</div>
 	)
 }
