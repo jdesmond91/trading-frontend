@@ -95,7 +95,6 @@ const Order = () => {
 					isValidOrder = true
 				} else {
 					setMessage('You do not have enough cash!')
-					alert('You do not have enough cash!')
 				}
 				// if its a SELL, verify that user has enough positions to sell
 			} else if (orderType === 'SELL') {
@@ -109,11 +108,9 @@ const Order = () => {
 					isValidOrder = true
 				} else {
 					setMessage('You do not own enough positions to sell!')
-					alert('You do not own enough positions to sell!')
 				}
 			} else {
 				setMessage('Please choose buy or sell!')
-				alert('Please choose buy or sell!')
 			}
 
 			console.log(order)
