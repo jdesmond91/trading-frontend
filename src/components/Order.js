@@ -9,6 +9,7 @@ import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 
 const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
+	// only show the preview if a security has been selected
 	return selected ? (
 		<div>
 			<div>Order Type: {orderType}</div>
@@ -35,10 +36,12 @@ const Order = () => {
 
 	const dispatch = useDispatch()
 
+	// map securities retrieved from redux to react-select component options
 	const securityOptions = securities.map((security) => {
 		return { value: security.id, label: security.name }
 	})
 
+	// react-select options to BUY or SELL
 	const orderOptions = [
 		{
 			value: 'BUY',
@@ -50,6 +53,8 @@ const Order = () => {
 		},
 	]
 
+	// set selected state variable to the security that was selected by the user through the select box
+	// if the user clears the select, security will be set to null
 	const handleSecurityChange = (selectedOption) => {
 		if (selectedOption) {
 			const selectedSecurity = securities.find((security) => security.id === selectedOption.value)
@@ -59,21 +64,27 @@ const Order = () => {
 		}
 	}
 
+	// handler for quantity changes
 	const handleQuantityChange = (event) => {
 		setQuantity(parseInt(event.target.value))
 	}
 
+	// handler for order type changes (BUY or SELL)
 	const handleOrderChange = (selectedOption) => {
 		setOrderType(selectedOption.value)
 	}
 
+	// handler for the order submissions
 	const handleSubmit = async (event) => {
+		// prevent default form action
 		event.preventDefault()
 
 		let order
 		let isValidOrder = false
 
+		// check if a security has been selected
 		if (selected) {
+			// if it's a BUY, verify that the user has enough cash to purchase the positions
 			if (orderType === 'BUY') {
 				if (cash - selected.price * quantity > 0) {
 					order = {
@@ -86,6 +97,7 @@ const Order = () => {
 					setMessage('You do not have enough cash!')
 					alert('You do not have enough cash!')
 				}
+				// if its a SELL, verify that user has enough positions to sell
 			} else if (orderType === 'SELL') {
 				const position = positions.find((position) => position.security.name === selected.name)
 				if (quantity <= position.quantity) {
@@ -106,6 +118,7 @@ const Order = () => {
 
 			console.log(order)
 
+			// if the order is validated, then invoke the createOrder method which will use the service to call the trading backend
 			try {
 				if (isValidOrder) {
 					const newOrder = await orderService.createOrder(order)
