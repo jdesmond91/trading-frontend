@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
+
 .flex {
 	display: flex;
 }
@@ -8,14 +14,20 @@
 }
 
 .nav {
-	background-color: cadetblue;
+	background-color: rgb(4, 138, 138);
 	justify-content: center;
+	align-items: center;
 	gap: 1rem;
+	padding: 1rem;
+}
+
+.nav > * {
+	color: white;
+	text-decoration: none;
 }
 
 .nav a {
-	color: white;
-	text-decoration: none;
+	font-weight: 500;
 }
 
 .container {
@@ -46,4 +58,8 @@
 	width: 50%;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+}
+
+.orderForm {
+	width: 50%;
 }
