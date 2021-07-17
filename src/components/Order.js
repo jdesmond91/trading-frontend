@@ -8,7 +8,7 @@ import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 
-const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit }) => {
+const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
 	return selected ? (
 		<div>
 			<div>Order Type: {orderType}</div>
@@ -17,6 +17,7 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit }) => 
 			<div>Quantity: {quantity}</div>
 			<div>Total: {selected.price * quantity}</div>
 			<div>Cash Available to Trade: {cash}</div>
+			<div>{message}</div>
 			<button onClick={handleSubmit}>Submit Order</button>
 		</div>
 	) : null
@@ -31,6 +32,8 @@ const Order = () => {
 	const [quantity, setQuantity] = useState(1)
 	const [orderType, setOrderType] = useState('BUY')
 	const [message, setMessage] = useState('')
+
+	const dispatch = useDispatch()
 
 	const securityOptions = securities.map((security) => {
 		return { value: security.id, label: security.name }
@@ -64,10 +67,11 @@ const Order = () => {
 		setOrderType(selectedOption.value)
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
 
 		let order
+		let isValidOrder = false
 
 		if (selected) {
 			if (orderType === 'BUY') {
@@ -77,7 +81,9 @@ const Order = () => {
 						securityId: selected.id,
 						quantity: quantity,
 					}
+					isValidOrder = true
 				} else {
+					setMessage('You do not have enough cash!')
 					alert('You do not have enough cash!')
 				}
 			} else if (orderType === 'SELL') {
@@ -88,25 +94,33 @@ const Order = () => {
 						securityId: selected.id,
 						quantity: quantity,
 					}
+					isValidOrder = true
 				} else {
+					setMessage('You do not own enough positions to sell!')
 					alert('You do not own enough positions to sell!')
 				}
 			} else {
+				setMessage('Please choose buy or sell!')
 				alert('Please choose buy or sell!')
 			}
 
 			console.log(order)
 
-			// try {
-			// 	const newOrder = await orderService.createOrder(order)
-			// 	dispatch(setCash(await positionService.getCash()))
-			// 	dispatch(setPositions(await positionService.getPositions()))
-			// 	dispatch(setTransactions(await transactionService.getTransactions()))
-			// 	console.log('newOrder', newOrder)
-			// } catch (err) {
-			// 	alert('Unable to complete order')
-			// }
+			try {
+				if (isValidOrder) {
+					const newOrder = await orderService.createOrder(order)
+					dispatch(setCash(await positionService.getCash()))
+					dispatch(setPositions(await positionService.getPositions()))
+					dispatch(setTransactions(await transactionService.getTransactions()))
+					setMessage('Order was successful!')
+					console.log('newOrder', newOrder)
+				}
+			} catch (err) {
+				setMessage('Unable to complete order')
+				alert('Unable to complete order')
+			}
 		} else {
+			setMessage('Please select a security')
 			alert('Please select a security')
 		}
 	}
@@ -128,13 +142,13 @@ const Order = () => {
 				onChange={handleQuantityChange}
 				min='1'
 			/>
-			<div>{message}</div>
 			<OrderPreview
 				selected={selected}
 				quantity={quantity}
 				cash={cash}
 				orderType={orderType}
 				handleSubmit={handleSubmit}
+				message={message}
 			/>
 		</div>
 	)
