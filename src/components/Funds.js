@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addCash } from '../redux/cashSlice'
 import positionService from '../services/positions'
 
-const FundsForm = ({ addFunds }) => {
+const FundsForm = () => {
 	const [value, setValue] = useState(0)
 	const dispatch = useDispatch()
 
@@ -21,16 +21,17 @@ const FundsForm = ({ addFunds }) => {
 
 	return (
 		<div>
-			<form onSubmit={handleFundsSubmit}>
-				<label htmlFor='funds'>Add Funds</label>
+			<form onSubmit={handleFundsSubmit} className='fundsForm flex'>
+				{/* <label htmlFor='funds'>Add Funds</label> */}
 				<input
 					type='number'
 					name='funds'
 					id='funds'
 					autoComplete='off'
 					onChange={handleCashValueChange}
+					className='fundsInput'
 				/>
-				<button id='submit' type='submit'>
+				<button id='submit' type='submit' className='button'>
 					Add Funds
 				</button>
 			</form>
