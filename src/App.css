@@ -12,25 +12,28 @@
 body {
 	font-family: 'Ubuntu', sans-serif;
 	background-color: rgb(255, 251, 251);
+	color: rgb(44, 43, 43);
 }
 
-h1 {
-	font-size: 3rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-}
-
-.flex {
+.container {
+	margin: 1rem 1rem;
 	display: flex;
-}
-
-.column {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 1rem;
+	gap: 2rem;
+}
+
+h1 {
+	font-size: clamp(2rem, 10vw, 3rem);
+}
+
+h2 {
+	font-size: clamp(1rem, 7vw, 2rem);
+}
+
+h3 {
+	font-size: clamp(0.5rem, 5vw, 1.5rem);
 }
 
 .shadow {
@@ -44,6 +47,7 @@ hr {
 }
 
 .nav {
+	display: flex;
 	background-color: #219ebc;
 	justify-content: center;
 	align-items: center;
@@ -52,7 +56,8 @@ hr {
 }
 
 .nav > * {
-	color: white;
+	font-size: clamp(1rem, 1.5vw, 1.5em);
+	color: rgb(255, 251, 251);
 	text-decoration: none;
 }
 
@@ -60,30 +65,65 @@ hr {
 	font-weight: 500;
 }
 
-.container {
-	margin: 1rem 0;
+.background {
+	background-color: white;
+	box-shadow: 4px 5px 10px 0px rgb(226 226 226 / 95%);
+	border: solid 0.1px rgba(177, 175, 175, 0.37);
+	border-radius: 0.5em;
+	padding: 4% 3%;
+}
+
+.networth {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 1rem;
+}
+
+.portfolio {
+	display: flex;
+	flex-direction: column;
 	gap: 2rem;
 }
 
-.button {
-	color: white;
-	background: #023047;
-	border-radius: 2em;
-	padding: 0.5rem 1.3rem;
+.funds {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	max-height: 12rem;
 }
 
 .fundsForm {
-	gap: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
 }
 
 .fundsInput {
 	border: solid 1px rgb(190, 188, 188);
 	border-radius: 0.25rem;
 	padding: 0.5rem;
+	max-width: 30%;
+}
+
+.button {
+	color: white;
+	background: #035b86;
+	border-radius: 2em;
+	padding: 0.5rem 1.3rem;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: #033b57;
+}
+
+table > * {
+	font-size: clamp(1rem, 1.5vw, 2rem);
 }
 
 th {
@@ -93,4 +133,21 @@ th {
 td {
 	border-bottom: 1px solid #ddd;
 	padding: 1rem;
+}
+
+@media only screen and (min-width: 800px) {
+	.portfolio {
+		flex-direction: row-reverse;
+		gap: 2rem;
+	}
+
+	.funds {
+		justify-content: initial;
+		align-items: initial;
+	}
+
+	.fundsForm {
+		justify-content: initial;
+		align-items: initial;
+	}
 }
