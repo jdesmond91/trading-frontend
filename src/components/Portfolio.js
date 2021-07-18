@@ -39,15 +39,19 @@ const Portfolio = () => {
 	// }, [dispatch, cash])
 
 	return (
-		<main>
-			<section className='networth'>
-				<h1>Total Net Worth</h1>
-				<h2>{netWorth}</h2>
+		<main className='container'>
+			<section className='networth flex column'>
+				<h2>Total Net Worth</h2>
+				<hr />
+				<h1>${netWorth}</h1>
 			</section>
 
-			<FundsForm />
-			<div>Cash</div>
-			<div>{cash}</div>
+			<section className='funds flex column'>
+				<FundsForm />
+				<h3>Available to trade</h3>
+				<hr />
+				<h2>${cash}</h2>
+			</section>
 			<Position />
 		</main>
 	)
