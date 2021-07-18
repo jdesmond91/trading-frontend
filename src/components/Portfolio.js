@@ -40,19 +40,21 @@ const Portfolio = () => {
 
 	return (
 		<main className='container'>
-			<section className='networth flex column'>
+			<section className='networth'>
 				<h2>Total Net Worth</h2>
 				<hr />
 				<h1>${netWorth}</h1>
 			</section>
 
-			<section className='funds flex column'>
-				<FundsForm />
-				<h3>Available to trade</h3>
-				<hr />
-				<h2>${cash}</h2>
+			<section className='portfolio'>
+				<aside className='funds background'>
+					<h3>Available to trade</h3>
+					<hr />
+					<h2>${cash}</h2>
+					<FundsForm />
+				</aside>
+				<Position />
 			</section>
-			<Position />
 		</main>
 	)
 }
