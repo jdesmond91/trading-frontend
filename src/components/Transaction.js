@@ -15,7 +15,7 @@ const Transaction = () => {
 	}, [dispatch])
 
 	return (
-		<table>
+		<table className='background'>
 			<thead>
 				<tr>
 					<th>Type</th>
