@@ -21,7 +21,7 @@ const FundsForm = () => {
 
 	return (
 		<div>
-			<form onSubmit={handleFundsSubmit} className='fundsForm flex'>
+			<form onSubmit={handleFundsSubmit} className='fundsForm'>
 				{/* <label htmlFor='funds'>Add Funds</label> */}
 				<input
 					type='number'
