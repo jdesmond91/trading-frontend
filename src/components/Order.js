@@ -11,7 +11,7 @@ import { setPositions } from '../redux/positionsSlice'
 const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
 	// only show the preview if a security has been selected
 	return selected ? (
-		<div>
+		<section className='orderPreview background'>
 			<div>Order Type: {orderType}</div>
 			<div>Security: {selected.ticker}</div>
 			<div>Security Price: {selected.price}</div>
@@ -19,8 +19,10 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 			<div>Total: {selected.price * quantity}</div>
 			<div>Cash Available to Trade: {cash}</div>
 			<div>{message}</div>
-			<button onClick={handleSubmit}>Submit Order</button>
-		</div>
+			<button onClick={handleSubmit} className='button'>
+				Submit Order
+			</button>
+		</section>
 	) : null
 }
 
@@ -136,22 +138,32 @@ const Order = () => {
 	}
 
 	return (
-		<div>
-			<Select
-				options={securityOptions}
-				isSearchable={true}
-				onChange={handleSecurityChange}
-				isClearable={true}
-			/>
-			<Select options={orderOptions} defaultValue={orderOptions[0]} onChange={handleOrderChange} />
-			<input
-				type='number'
-				name='orderQuantity'
-				id='orderQuantity'
-				value={quantity}
-				onChange={handleQuantityChange}
-				min='1'
-			/>
+		<section className='order'>
+			<section className='orderForm background'>
+				<h2>Create an order</h2>
+				<Select
+					options={securityOptions}
+					isSearchable={true}
+					onChange={handleSecurityChange}
+					isClearable={true}
+					className='select'
+				/>
+				<Select
+					options={orderOptions}
+					defaultValue={orderOptions[0]}
+					onChange={handleOrderChange}
+					className='select'
+				/>
+				<input
+					type='number'
+					name='orderQuantity'
+					id='orderQuantity'
+					value={quantity}
+					onChange={handleQuantityChange}
+					min='1'
+					className='orderInput'
+				/>
+			</section>
 			<OrderPreview
 				selected={selected}
 				quantity={quantity}
@@ -160,7 +172,7 @@ const Order = () => {
 				handleSubmit={handleSubmit}
 				message={message}
 			/>
-		</div>
+		</section>
 	)
 }
 
