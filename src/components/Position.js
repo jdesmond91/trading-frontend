@@ -5,7 +5,7 @@ const Position = () => {
 	const positions = useSelector((state) => state.positions.value)
 
 	return (
-		<table>
+		<table className='background'>
 			<thead>
 				<tr>
 					<th></th>
