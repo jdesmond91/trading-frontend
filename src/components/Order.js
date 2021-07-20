@@ -12,13 +12,14 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 	// only show the preview if a security has been selected
 	return selected ? (
 		<section className='orderPreview background'>
-			<div>Order Type: {orderType}</div>
-			<div>Security: {selected.ticker}</div>
-			<div>Security Price: {selected.price}</div>
-			<div>Quantity: {quantity}</div>
-			<div>Total: {selected.price * quantity}</div>
-			<div>Cash Available to Trade: {cash}</div>
-			<div>{message}</div>
+			<h2>Order Preview</h2>
+			<p>Order Type: {orderType}</p>
+			<p>Security: {selected.ticker}</p>
+			<p>Security Price: {selected.price}</p>
+			<p>Quantity: {quantity}</p>
+			<p>Total: {selected.price * quantity}</p>
+			<p>Cash Available to Trade: {cash}</p>
+			<p>{message}</p>
 			<button onClick={handleSubmit} className='button'>
 				Submit Order
 			</button>
