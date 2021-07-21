@@ -6,4 +6,8 @@ const getSecurities = async () => {
 	return res.data
 }
 
-export default { getSecurities }
+const securityService = {
+	getSecurities,
+}
+
+export default securityService

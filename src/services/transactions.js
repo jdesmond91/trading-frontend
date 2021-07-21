@@ -6,4 +6,8 @@ const getTransactions = async () => {
 	return res.data
 }
 
-export default { getTransactions }
+const transactionService = {
+	getTransactions,
+}
+
+export default transactionService

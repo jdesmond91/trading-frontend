@@ -6,4 +6,8 @@ const createOrder = async (order) => {
 	return res.data
 }
 
-export default { createOrder }
+const orderService = {
+	createOrder,
+}
+
+export default orderService

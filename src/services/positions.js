@@ -21,4 +21,11 @@ const getNetWorth = async () => {
 	return res.data
 }
 
-export default { getPositions, getCash, depositCash, getNetWorth }
+const positionService = {
+	getPositions,
+	getCash,
+	depositCash,
+	getNetWorth,
+}
+
+export default positionService
