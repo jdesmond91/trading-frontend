@@ -70,7 +70,7 @@ hr {
 	box-shadow: 4px 5px 10px 0px rgb(226 226 226 / 95%);
 	border: solid 0.1px rgba(177, 175, 175, 0.37);
 	border-radius: 0.5em;
-	padding: 4% 3%;
+	padding: clamp(1rem, 2%, 2rem);
 }
 
 .networth {
@@ -122,10 +122,6 @@ hr {
 	background: #033b57;
 }
 
-table > * {
-	font-size: clamp(0.8rem, 1.5vw, 1.5rem);
-}
-
 th {
 	padding-bottom: 0.5rem;
 }
@@ -145,10 +141,6 @@ td {
 	gap: 2rem;
 }
 
-.transactions.background {
-	padding: 5% 5%;
-}
-
 .order {
 	display: flex;
 	flex-direction: column;
@@ -156,10 +148,6 @@ td {
 	justify-content: center;
 	gap: 1rem;
 	min-width: 15rem;
-}
-
-.orderForm.background {
-	padding: 5% 5%;
 }
 
 .orderForm {
@@ -174,11 +162,6 @@ td {
 	flex-direction: column;
 	gap: 1rem;
 	width: 100%;
-	font-size: clamp(0.8rem, 1.5vw, 1.5rem);
-}
-
-.orderPreview.background {
-	padding: 5% 5%;
 }
 
 .orderInput {
@@ -205,5 +188,10 @@ td {
 
 	.order {
 		flex-direction: row;
+		align-items: initial;
+	}
+
+	.orderPreview {
+		width: 30rem;
 	}
 }
