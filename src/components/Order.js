@@ -19,7 +19,7 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 			<p>Quantity: {quantity}</p>
 			<p>Total: {selected.price * quantity}</p>
 			<p>Cash Available to Trade: {cash}</p>
-			<p>{message}</p>
+			<p className='errorMessage'>{message}</p>
 			<button onClick={handleSubmit} className='button'>
 				Submit Order
 			</button>
@@ -69,7 +69,11 @@ const Order = () => {
 
 	// handler for quantity changes
 	const handleQuantityChange = (event) => {
-		setQuantity(parseInt(event.target.value))
+		if (parseInt(event.target.value)) {
+			setQuantity(parseInt(event.target.value))
+		} else {
+			setQuantity(0)
+		}
 	}
 
 	// handler for order type changes (BUY or SELL)
@@ -86,55 +90,63 @@ const Order = () => {
 		let isValidOrder = false
 
 		// check if a security has been selected
-		if (selected) {
-			// if it's a BUY, verify that the user has enough cash to purchase the positions
-			if (orderType === 'BUY') {
-				if (cash - selected.price * quantity > 0) {
-					order = {
-						type: 'BUY',
-						securityId: selected.id,
-						quantity: quantity,
-					}
-					isValidOrder = true
-				} else {
-					setMessage('You do not have enough cash!')
+		if (!selected) {
+			setMessage('Please select a security')
+			return
+		}
+
+		if (quantity <= 0) {
+			setMessage('Please select a quantity greater than 0')
+			return
+		}
+
+		// if it's a BUY, verify that the user has enough cash to purchase the positions
+		if (orderType === 'BUY') {
+			if (cash - selected.price * quantity > 0) {
+				order = {
+					type: 'BUY',
+					securityId: selected.id,
+					quantity: quantity,
 				}
-				// if its a SELL, verify that user has enough positions to sell
-			} else if (orderType === 'SELL') {
-				const position = positions.find((position) => position.security.name === selected.name)
-				if (quantity <= position.quantity) {
-					order = {
-						type: 'SELL',
-						securityId: selected.id,
-						quantity: quantity,
-					}
-					isValidOrder = true
-				} else {
-					setMessage('You do not own enough positions to sell!')
-				}
+				isValidOrder = true
 			} else {
-				setMessage('Please choose buy or sell!')
+				setMessage('You do not have enough cash!')
+				return
 			}
-
-			console.log(order)
-
-			// if the order is validated, then invoke the createOrder method which will use the service to call the trading backend
-			try {
-				if (isValidOrder) {
-					const newOrder = await orderService.createOrder(order)
-					dispatch(setCash(await positionService.getCash()))
-					dispatch(setPositions(await positionService.getPositions()))
-					dispatch(setTransactions(await transactionService.getTransactions()))
-					setMessage('Order was successful!')
-					console.log('newOrder', newOrder)
+			// if its a SELL, verify that user has enough positions to sell
+		} else if (orderType === 'SELL') {
+			const position = positions.find((position) => position.security.name === selected.name)
+			if (quantity <= position.quantity) {
+				order = {
+					type: 'SELL',
+					securityId: selected.id,
+					quantity: quantity,
 				}
-			} catch (err) {
-				setMessage('Unable to complete order')
-				alert('Unable to complete order')
+				isValidOrder = true
+			} else {
+				setMessage('You do not own enough positions to sell!')
+				return
 			}
 		} else {
-			setMessage('Please select a security')
-			alert('Please select a security')
+			setMessage('Please choose buy or sell!')
+			return
+		}
+
+		console.log(order)
+
+		// if the order is validated, then invoke the createOrder method which will use the service to call the trading backend
+		try {
+			if (isValidOrder) {
+				const newOrder = await orderService.createOrder(order)
+				dispatch(setCash(await positionService.getCash()))
+				dispatch(setPositions(await positionService.getPositions()))
+				dispatch(setTransactions(await transactionService.getTransactions()))
+				setMessage('Order was successful!')
+				console.log('newOrder', newOrder)
+			}
+		} catch (err) {
+			setMessage('Unable to complete order')
+			alert('Unable to complete order')
 		}
 	}
 
