@@ -16,6 +16,7 @@ const FundsForm = () => {
 		const res = await positionService.depositCash(value)
 		if (res.id) {
 			dispatch(addCash(value))
+			setValue(0)
 		}
 	}
 
