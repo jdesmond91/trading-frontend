@@ -1,6 +1,7 @@
 import React from 'react'
 import FundsForm from './Funds'
 import Position from './Position'
+import Success from './Success'
 import { useSelector } from 'react-redux'
 
 const Portfolio = () => {
@@ -9,7 +10,7 @@ const Portfolio = () => {
 	const cash = useSelector((state) => state.cash.value)
 
 	return (
-		<main className='container'>
+		<article className='container'>
 			<section className='networth'>
 				<h2>Total Net Worth</h2>
 				<hr />
@@ -25,7 +26,7 @@ const Portfolio = () => {
 				</aside>
 				<Position />
 			</section>
-		</main>
+		</article>
 	)
 }
 
