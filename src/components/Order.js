@@ -8,6 +8,20 @@ import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 
+const OrderQuantity = ({ quantity, handleQuantityIncrease, handleQuantityDecrease }) => {
+	return (
+		<section className='orderQuantity'>
+			<button className='button' onClick={handleQuantityDecrease}>
+				-
+			</button>
+			<p>{quantity}</p>
+			<button className='button' onClick={handleQuantityIncrease}>
+				+
+			</button>
+		</section>
+	)
+}
+
 const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
 	// only show the preview if a security has been selected
 	return selected ? (
@@ -67,12 +81,13 @@ const Order = () => {
 		}
 	}
 
-	// handler for quantity changes
-	const handleQuantityChange = (event) => {
-		if (parseInt(event.target.value)) {
-			setQuantity(parseInt(event.target.value))
-		} else {
-			setQuantity(0)
+	const handleQuantityIncrease = () => {
+		setQuantity(quantity + 1)
+	}
+
+	const handleQuantityDecrease = () => {
+		if (quantity > 1) {
+			setQuantity(quantity - 1)
 		}
 	}
 
@@ -151,7 +166,7 @@ const Order = () => {
 	}
 
 	return (
-		<section className='order'>
+		<article className='order'>
 			<section className='orderForm background'>
 				<h2>Create an order</h2>
 				<Select
@@ -167,14 +182,11 @@ const Order = () => {
 					onChange={handleOrderChange}
 					className='select'
 				/>
-				<input
-					type='number'
-					name='orderQuantity'
-					id='orderQuantity'
-					value={quantity}
-					onChange={handleQuantityChange}
-					min='1'
-					className='orderInput'
+				<p>How many shares?</p>
+				<OrderQuantity
+					quantity={quantity}
+					handleQuantityIncrease={handleQuantityIncrease}
+					handleQuantityDecrease={handleQuantityDecrease}
 				/>
 			</section>
 			<OrderPreview
@@ -185,7 +197,7 @@ const Order = () => {
 				handleSubmit={handleSubmit}
 				message={message}
 			/>
-		</section>
+		</article>
 	)
 }
 
