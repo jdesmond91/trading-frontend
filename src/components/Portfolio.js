@@ -1,7 +1,6 @@
 import React from 'react'
 import FundsForm from './Funds'
 import Position from './Position'
-import Success from './Success'
 import { useSelector } from 'react-redux'
 
 const Portfolio = () => {
