@@ -123,12 +123,12 @@ hr {
 }
 
 th {
-	padding-bottom: 0.5rem;
+	padding: 0.5rem;
 }
 
 td {
 	border-bottom: 1px solid #ddd;
-	padding: 0.6rem;
+	padding: 0.5rem;
 }
 
 .select {
@@ -148,6 +148,24 @@ td {
 	justify-content: center;
 	gap: 1rem;
 	min-width: 15rem;
+}
+
+.orderQuantity {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.orderQuantity > * {
+	font-size: clamp(1rem, 7vw, 1.5rem);
+	padding: 0.5rem 0.5rem;
+}
+
+.orderQuantity button {
+	width: 46px;
+	height: 46px;
+	border-radius: 23px;
 }
 
 .orderForm {
