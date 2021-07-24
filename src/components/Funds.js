@@ -21,22 +21,19 @@ const FundsForm = () => {
 	}
 
 	return (
-		<div>
-			<form onSubmit={handleFundsSubmit} className='fundsForm'>
-				{/* <label htmlFor='funds'>Add Funds</label> */}
-				<input
-					type='number'
-					name='funds'
-					id='funds'
-					autoComplete='off'
-					onChange={handleCashValueChange}
-					className='fundsInput'
-				/>
-				<button id='submit' type='submit' className='button'>
-					Add Funds
-				</button>
-			</form>
-		</div>
+		<form onSubmit={handleFundsSubmit} className='fundsForm'>
+			<input
+				type='number'
+				name='funds'
+				id='funds'
+				autoComplete='off'
+				onChange={handleCashValueChange}
+				className='fundsInput'
+			/>
+			<button id='submit' type='submit' className='button'>
+				Add Funds
+			</button>
+		</form>
 	)
 }
 
