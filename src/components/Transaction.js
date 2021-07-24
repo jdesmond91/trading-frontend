@@ -15,7 +15,7 @@ const Transaction = () => {
 	}, [dispatch])
 
 	return (
-		<section className='transactions background'>
+		<article className='transactions background'>
 			<h2>Transactions</h2>
 			<table>
 				<thead>
@@ -37,7 +37,7 @@ const Transaction = () => {
 					})}
 				</tbody>
 			</table>
-		</section>
+		</article>
 	)
 }
 
