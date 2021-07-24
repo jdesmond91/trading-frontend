@@ -50,22 +50,20 @@ const App = () => {
 
 	return (
 		<Router>
-			<div>
-				<Header />
-				<div className='container'>
-					<Switch>
-						<Route exact path='/'>
-							<Portfolio />
-						</Route>
-						<Route path='/order'>
-							<Order />
-						</Route>
-						<Route path='/transaction'>
-							<Transaction />
-						</Route>
-					</Switch>
-				</div>
-			</div>
+			<Header />
+			<main className='container'>
+				<Switch>
+					<Route exact path='/'>
+						<Portfolio />
+					</Route>
+					<Route path='/order'>
+						<Order />
+					</Route>
+					<Route path='/transaction'>
+						<Transaction />
+					</Route>
+				</Switch>
+			</main>
 		</Router>
 	)
 }
