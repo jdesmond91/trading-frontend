@@ -21,7 +21,7 @@ const FundsForm = () => {
 	}
 
 	return (
-		<form className='form flex-wrapper flex-wrapper--row' onSubmit={handleFundsSubmit}>
+		<form className='form' onSubmit={handleFundsSubmit}>
 			<input
 				className='form__input input'
 				type='number'
