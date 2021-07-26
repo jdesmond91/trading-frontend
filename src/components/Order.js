@@ -188,17 +188,14 @@ const Order = () => {
 			return
 		}
 
-		console.log(order)
-
 		// if the order is validated, then invoke the createOrder method which will use the service to call the trading backend
 		try {
 			if (isValidOrder) {
-				const newOrder = await orderService.createOrder(order)
+				await orderService.createOrder(order)
 				dispatch(setCash(await positionService.getCash()))
 				dispatch(setPositions(await positionService.getPositions()))
 				dispatch(setTransactions(await transactionService.getTransactions()))
-				setMessage('Order was successful!')
-				console.log('newOrder', newOrder)
+				handleModalOpen()
 			}
 		} catch (err) {
 			setMessage('Unable to complete order, please try again later!')
