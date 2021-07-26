@@ -10,16 +10,16 @@ const Portfolio = () => {
 
 	return (
 		<article className='portfolio article grid-container'>
-			<section className='net-worth section section--no-background flex-wrapper'>
-				<h2 className='section__heading'>Total Net Worth</h2>
+			<section className='net-worth section section--no-background'>
+				<h1 className='section__heading'>Total Net Worth</h1>
 				<hr className='section__hr' />
-				<h1 className='section__main'>${netWorth}</h1>
+				<p className='section__main'>${netWorth}</p>
 			</section>
 
-			<section className='section flex-wrapper'>
-				<h3 className='section__heading'>Available to trade</h3>
+			<section className='funds section'>
+				<h2 className='section__heading'>Available to trade</h2>
 				<hr className='section__hr' />
-				<h2 className='section__main'>${cash}</h2>
+				<p className='section__main'>${cash}</p>
 				<FundsForm />
 			</section>
 
