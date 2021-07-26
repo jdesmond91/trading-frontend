@@ -33,7 +33,7 @@ export const Modal = ({ isModalOpen, setIsModalOpen, resetFields }) => {
 					<button className='button' onClick={handleClose}>
 						Create another order
 					</button>
-					<button className='button button--secondary'>
+					<button className='button button--secondary' onClick={handleClose}>
 						<Link to='/'>Back to Portfolio</Link>
 					</button>
 				</div>
