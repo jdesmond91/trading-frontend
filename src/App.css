@@ -14,12 +14,6 @@
 	vertical-align: baseline;
 }
 
-/* * {
-	background: #000 !important;
-	color: #0f0 !important;
-	outline: solid #f00 1px !important;
-} */
-
 html,
 body {
 	min-width: 100%;
@@ -34,10 +28,6 @@ body {
 	font-family: 'Ubuntu', sans-serif;
 	background-color: rgb(255, 251, 251);
 	color: rgb(44, 43, 43);
-}
-
-main {
-	/* margin: 0 auto; */
 }
 
 .grid-container {
@@ -134,11 +124,6 @@ hr {
 	padding: 0.5rem;
 }
 
-/* .net-worth {
-	background-color: yellow;
-	grid-column: span 2;
-} */
-
 .select {
 	width: 100%;
 }
@@ -225,12 +210,6 @@ hr {
 	gap: 1rem;
 }
 
-/* @media only screen and (min-width: 368px) {
-	.section--large {
-		width: 20rem;
-	}
-} */
-
 @media only screen and (min-width: 700px) {
 	.portfolio {
 		grid-template-columns: repeat(2, minmax(var(--section-min-size), var(--section-max-size)));
@@ -239,15 +218,6 @@ hr {
 	.net-worth {
 		grid-column: span 2;
 	}
-
-	/* .section {
-		min-height: 18rem;
-	} */
-
-	/* .order {
-		flex-direction: row;
-		align-items: initial;
-	} */
 
 	.order {
 		grid-template-columns: repeat(
