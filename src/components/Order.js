@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
+import { Link } from 'react-router-dom'
 import Modal from './Modal'
 
 const OrderQuantity = ({
@@ -50,7 +51,7 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 			<p className='section__text'>Quantity: {quantity}</p>
 			<p className='section__text'>Total: {selected.price * quantity}</p>
 			<p className='section__text'>Cash Available to Trade: {cash}</p>
-			<p className='section__text errorMessage'>{message}</p>
+			<p className='section__text message'>{message}</p>
 			<button onClick={handleSubmit} className='order-section__button button'>
 				Submit Order
 			</button>
@@ -125,17 +126,24 @@ const Order = () => {
 		setOrderType(selectedOption.value)
 	}
 
+	// use a ref to the react-select input and clear its field value
+	const resetFields = () => {
+		setSelected(null)
+		setQuantity(1)
+		securitySelectRef.current.select.clearValue()
+	}
+
 	// turn on scroll lock and open modal
 	const handleModalOpen = () => {
 		document.body.style.overflow = 'hidden'
 		setIsModalOpen(true)
 	}
 
-	// use a ref to the react-select input and clear its field value
-	const resetFields = () => {
-		setSelected(null)
-		setQuantity(1)
-		securitySelectRef.current.select.clearValue()
+	// turn off scroll lock and close modal
+	const handleModalClose = () => {
+		document.body.style.overflow = 'auto'
+		resetFields()
+		setIsModalOpen(false)
 	}
 
 	// handler for the order submissions
@@ -238,7 +246,16 @@ const Order = () => {
 				handleSubmit={handleSubmit}
 				message={message}
 			/>
-			<Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} resetFields={resetFields} />
+			<Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
+				<h2 className='modal__heading'>Success!</h2>
+				<p className='modal__text'>Your order was confirmed!</p>
+				<button className='button' onClick={handleModalClose}>
+					Create another order
+				</button>
+				<button className='button button--secondary' onClick={handleModalClose}>
+					<Link to='/'>Back to Portfolio</Link>
+				</button>
+			</Modal>
 		</article>
 	)
 }
