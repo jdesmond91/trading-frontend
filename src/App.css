@@ -165,7 +165,7 @@ hr {
 	align-items: center;
 }
 
-.modal-inner {
+.modal__inner {
 	position: relative;
 	margin: 1rem;
 	width: 100%;
@@ -177,7 +177,7 @@ hr {
 	flex-direction: column;
 }
 
-.modal-close {
+.modal__close {
 	background-color: transparent;
 	position: absolute;
 	top: 10px;
@@ -185,7 +185,7 @@ hr {
 	color: rgb(255, 251, 251);
 }
 
-.modal-inner-top {
+.modal__top {
 	background-color: #219ebc;
 	border-radius: 0.5rem 0.5rem 0 0;
 	height: 40%;
@@ -195,11 +195,11 @@ hr {
 	color: rgb(255, 251, 251);
 }
 
-.modal-inner-top span {
+.modal__top span {
 	font-size: 5rem;
 }
 
-.modal-inner-bottom {
+.modal__bottom {
 	background-color: white;
 	border-radius: 0 0 0.5rem 0.5rem;
 	height: 60%;
