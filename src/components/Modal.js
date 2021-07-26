@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 export const Modal = ({ isModalOpen, setIsModalOpen, resetFields }) => {
 	const modalRef = useRef()
@@ -29,6 +30,12 @@ export const Modal = ({ isModalOpen, setIsModalOpen, resetFields }) => {
 				<div className='modal__bottom'>
 					<h2 className='modal__heading'>Success!</h2>
 					<p className='modal__text'>Your order was confirmed!</p>
+					<button className='button' onClick={handleClose}>
+						Create another order
+					</button>
+					<button className='button button--secondary'>
+						<Link to='/'>Back to Portfolio</Link>
+					</button>
 				</div>
 			</div>
 		</div>
