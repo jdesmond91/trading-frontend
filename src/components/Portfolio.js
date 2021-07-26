@@ -9,22 +9,21 @@ const Portfolio = () => {
 	const cash = useSelector((state) => state.cash.value)
 
 	return (
-		<article className='container'>
-			<section className='networth'>
-				<h2>Total Net Worth</h2>
-				<hr />
-				<h1>${netWorth}</h1>
+		<article className='portfolio article grid-container'>
+			<section className='net-worth section section--no-background flex-wrapper'>
+				<h2 className='section__heading'>Total Net Worth</h2>
+				<hr className='section__hr' />
+				<h1 className='section__main'>${netWorth}</h1>
 			</section>
 
-			<section className='portfolio'>
-				<aside className='funds background'>
-					<h3>Available to trade</h3>
-					<hr />
-					<h2>${cash}</h2>
-					<FundsForm />
-				</aside>
-				<Position />
+			<section className='section flex-wrapper'>
+				<h3 className='section__heading'>Available to trade</h3>
+				<hr className='section__hr' />
+				<h2 className='section__main'>${cash}</h2>
+				<FundsForm />
 			</section>
+
+			<Position />
 		</article>
 	)
 }
