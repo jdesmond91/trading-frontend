@@ -21,16 +21,16 @@ const FundsForm = () => {
 	}
 
 	return (
-		<form onSubmit={handleFundsSubmit} className='fundsForm'>
+		<form className='form flex-wrapper flex-wrapper--row' onSubmit={handleFundsSubmit}>
 			<input
+				className='form__input input'
 				type='number'
 				name='funds'
 				id='funds'
 				autoComplete='off'
 				onChange={handleCashValueChange}
-				className='fundsInput'
 			/>
-			<button id='submit' type='submit' className='button'>
+			<button id='submit' className='form__button button' type='submit'>
 				Add Funds
 			</button>
 		</form>
