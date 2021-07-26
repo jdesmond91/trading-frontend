@@ -236,7 +236,6 @@ const Order = () => {
 				handleSubmit={handleSubmit}
 				message={message}
 			/>
-			<button onClick={handleModalOpen}>Open Popup</button>
 			<Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} resetFields={resetFields} />
 		</article>
 	)
