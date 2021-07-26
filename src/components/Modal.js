@@ -27,8 +27,8 @@ export const Modal = ({ isModalOpen, setIsModalOpen, resetFields }) => {
 					<span className='material-icons'>check_circle</span>
 				</div>
 				<div className='modal__bottom'>
-					<h2>Success!</h2>
-					<p>Your order was confirmed!</p>
+					<h2 className='modal__heading'>Success!</h2>
+					<p className='modal__text'>Your order was confirmed!</p>
 				</div>
 			</div>
 		</div>
