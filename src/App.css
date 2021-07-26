@@ -9,6 +9,28 @@
 	--button-secondary-colour: #151919;
 }
 
+@keyframes pageTransition {
+	from {
+		opacity: 0;
+		transform: rotateX(-10deg);
+	}
+
+	to {
+		opacity: 1;
+		transform: rotateX(0);
+	}
+}
+
+@keyframes modalTransition {
+	from {
+		transform: translateY(100px);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -45,6 +67,7 @@ body {
 .article {
 	margin: 1rem;
 	justify-items: center;
+	animation: pageTransition 0.75s;
 }
 
 .header {
@@ -208,6 +231,7 @@ body {
 	border-radius: 0.5em;
 	display: flex;
 	flex-direction: column;
+	animation: modalTransition 0.5s;
 }
 
 .modal__close {
