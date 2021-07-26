@@ -5,6 +5,7 @@ import Portfolio from './components/Portfolio'
 import Order from './components/Order'
 import Transaction from './components/Transaction'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
 import securityService from './services/securities'
 import positionService from './services/positions'
 import { useDispatch } from 'react-redux'
@@ -51,6 +52,7 @@ const App = () => {
 	return (
 		<Router>
 			<Header />
+			<ScrollToTop />
 			<main>
 				<Switch>
 					<Route exact path='/'>
