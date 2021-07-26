@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Select from 'react-select'
 import orderService from '../services/orders'
 import positionService from '../services/positions'
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
+import Modal from './Modal'
 
 const OrderQuantity = ({
 	quantity,
@@ -65,8 +66,11 @@ const Order = () => {
 	const [quantity, setQuantity] = useState(1)
 	const [orderType, setOrderType] = useState('BUY')
 	const [message, setMessage] = useState('')
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const dispatch = useDispatch()
+
+	const securitySelectRef = useRef()
 
 	// map securities retrieved from redux to react-select component options
 	const securityOptions = securities.map((security) => {
@@ -118,6 +122,19 @@ const Order = () => {
 	// handler for order type changes (BUY or SELL)
 	const handleOrderChange = (selectedOption) => {
 		setOrderType(selectedOption.value)
+	}
+
+	// turn on scroll lock and open modal
+	const handleModalOpen = () => {
+		document.body.style.overflow = 'hidden'
+		setIsModalOpen(true)
+	}
+
+	// use a ref to the react-select input and clear its field value
+	const resetFields = () => {
+		setSelected(null)
+		setQuantity(1)
+		securitySelectRef.current.select.clearValue()
 	}
 
 	// handler for the order submissions
@@ -198,6 +215,7 @@ const Order = () => {
 					isSearchable={true}
 					onChange={handleSecurityChange}
 					isClearable={true}
+					ref={securitySelectRef}
 				/>
 				<Select
 					className='order-form__select select'
@@ -221,6 +239,8 @@ const Order = () => {
 				handleSubmit={handleSubmit}
 				message={message}
 			/>
+			<button onClick={handleModalOpen}>Open Popup</button>
+			<Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} resetFields={resetFields} />
 		</article>
 	)
 }
