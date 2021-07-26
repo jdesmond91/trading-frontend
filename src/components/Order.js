@@ -8,33 +8,48 @@ import { setCash } from '../redux/cashSlice'
 import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 
-const OrderQuantity = ({ quantity, handleQuantityIncrease, handleQuantityDecrease }) => {
+const OrderQuantity = ({
+	quantity,
+	handleQuantityIncrease,
+	handleQuantityDecrease,
+	handleQuantityChange,
+}) => {
 	return (
-		<section className='orderQuantity'>
-			<button className='button' onClick={handleQuantityDecrease}>
-				-
-			</button>
-			<p>{quantity}</p>
-			<button className='button' onClick={handleQuantityIncrease}>
-				+
-			</button>
-		</section>
+		<div className='order-quantity flex-wrapper flex-wrapper--row'>
+			<div className='order-quantity__input-row'>
+				<button className='order-quantity__button button' onClick={handleQuantityDecrease}>
+					-
+				</button>
+				<input
+					className='order-quantity__input input'
+					type='number'
+					name='orderQuantity'
+					id='orderQuantity'
+					value={quantity}
+					onChange={handleQuantityChange}
+					min='1'
+				/>
+				<button className='order-quantity__button button' onClick={handleQuantityIncrease}>
+					+
+				</button>
+			</div>
+		</div>
 	)
 }
 
 const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
 	// only show the preview if a security has been selected
 	return selected ? (
-		<section className='orderPreview background'>
-			<h2>Order Preview</h2>
-			<p>Order Type: {orderType}</p>
-			<p>Security: {selected.ticker}</p>
-			<p>Security Price: {selected.price}</p>
-			<p>Quantity: {quantity}</p>
-			<p>Total: {selected.price * quantity}</p>
-			<p>Cash Available to Trade: {cash}</p>
-			<p className='errorMessage'>{message}</p>
-			<button onClick={handleSubmit} className='button'>
+		<section className='order-preview section flex-wrapper'>
+			<h2 className='section__heading'>Order Preview</h2>
+			<p className='section__text'>Order Type: {orderType}</p>
+			<p className='section__text'>Security: {selected.ticker}</p>
+			<p className='section__text'>Security Price: {selected.price}</p>
+			<p className='section__text'>Quantity: {quantity}</p>
+			<p className='section__text'>Total: {selected.price * quantity}</p>
+			<p className='section__text'>Cash Available to Trade: {cash}</p>
+			<p className='section__text errorMessage'>{message}</p>
+			<button onClick={handleSubmit} className='order-section__button button'>
 				Submit Order
 			</button>
 		</section>
@@ -81,8 +96,17 @@ const Order = () => {
 		}
 	}
 
+	// handler for quantity changes
+	const handleQuantityChange = (event) => {
+		setQuantity(parseInt(event.target.value))
+	}
+
 	const handleQuantityIncrease = () => {
-		setQuantity(quantity + 1)
+		if (quantity) {
+			setQuantity(quantity + 1)
+		} else {
+			setQuantity(1)
+		}
 	}
 
 	const handleQuantityDecrease = () => {
@@ -160,33 +184,33 @@ const Order = () => {
 				console.log('newOrder', newOrder)
 			}
 		} catch (err) {
-			setMessage('Unable to complete order')
-			alert('Unable to complete order')
+			setMessage('Unable to complete order, please try again later!')
 		}
 	}
 
 	return (
-		<article className='order'>
-			<section className='orderForm background'>
-				<h2>Create an order</h2>
+		<article className='order article grid-container'>
+			<section className='order-form section flex-wrapper'>
+				<h2 className='order-form__heading'>Create an order</h2>
 				<Select
+					className='order-form__select select'
 					options={securityOptions}
 					isSearchable={true}
 					onChange={handleSecurityChange}
 					isClearable={true}
-					className='select'
 				/>
 				<Select
+					className='order-form__select select'
 					options={orderOptions}
 					defaultValue={orderOptions[0]}
 					onChange={handleOrderChange}
-					className='select'
 				/>
-				<p>How many shares?</p>
+				<p className='order-form__quantity'>How many shares?</p>
 				<OrderQuantity
 					quantity={quantity}
 					handleQuantityIncrease={handleQuantityIncrease}
 					handleQuantityDecrease={handleQuantityDecrease}
+					handleQuantityChange={handleQuantityChange}
 				/>
 			</section>
 			<OrderPreview
