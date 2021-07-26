@@ -51,7 +51,7 @@ const App = () => {
 	return (
 		<Router>
 			<Header />
-			<main className='container'>
+			<main>
 				<Switch>
 					<Route exact path='/'>
 						<Portfolio />
