@@ -3,6 +3,10 @@
 :root {
 	--section-min-size: 16rem;
 	--section-max-size: 29rem;
+
+	--main-brand-colour: #47625c;
+	--button-primary-colour: #186579;
+	--button-secondary-colour: #151919;
 }
 
 * {
@@ -12,6 +16,7 @@
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	text-decoration: none;
 }
 
 html,
@@ -54,7 +59,7 @@ hr {
 
 .nav {
 	display: flex;
-	background-color: #219ebc;
+	background-color: var(--main-brand-colour);
 	justify-content: center;
 	align-items: center;
 	gap: 0.5rem;
@@ -100,10 +105,18 @@ hr {
 
 .button {
 	color: white;
-	background: #035b86;
+	background-color: var(--button-primary-colour);
 	border-radius: 2em;
 	padding: 0.5rem 1.3rem;
 	cursor: pointer;
+}
+
+.button--secondary {
+	background-color: var(--button-secondary-colour);
+}
+
+.button a {
+	color: white;
 }
 
 .button:hover {
@@ -170,7 +183,7 @@ hr {
 	margin: 1rem;
 	width: 100%;
 	max-width: 30rem;
-	height: 15rem;
+	height: 22rem;
 	box-shadow: none;
 	border-radius: 0.5em;
 	display: flex;
@@ -186,7 +199,7 @@ hr {
 }
 
 .modal__top {
-	background-color: #219ebc;
+	background-color: #47625c;
 	border-radius: 0.5rem 0.5rem 0 0;
 	height: 40%;
 	display: flex;
@@ -208,6 +221,10 @@ hr {
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
+}
+
+.modal__heading {
+	font-size: 2rem;
 }
 
 @media only screen and (min-width: 700px) {
