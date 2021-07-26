@@ -16,8 +16,9 @@ const Transaction = () => {
 
 	return (
 		<article className='transactions article grid-container'>
-			<section className='section flex-wrapper'>
+			<section className='section'>
 				<h2 className='section__heading'>Transactions</h2>
+				<hr className='section__hr' />
 				<table className='table'>
 					<thead className='table__head'>
 						<tr className='table__row'>
