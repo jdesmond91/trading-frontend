@@ -16,7 +16,7 @@ const OrderQuantity = ({
 	handleQuantityChange,
 }) => {
 	return (
-		<div className='order-quantity flex-wrapper flex-wrapper--row'>
+		<div className='order-quantity'>
 			<div className='order-quantity__input-row'>
 				<button className='order-quantity__button button' onClick={handleQuantityDecrease}>
 					-
@@ -41,8 +41,9 @@ const OrderQuantity = ({
 const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, message }) => {
 	// only show the preview if a security has been selected
 	return selected ? (
-		<section className='order-preview section flex-wrapper'>
+		<section className='order-preview section'>
 			<h2 className='section__heading'>Order Preview</h2>
+			<hr className='section__hr' />
 			<p className='section__text'>Order Type: {orderType}</p>
 			<p className='section__text'>Security: {selected.ticker}</p>
 			<p className='section__text'>Security Price: {selected.price}</p>
@@ -204,10 +205,11 @@ const Order = () => {
 
 	return (
 		<article className='order article grid-container'>
-			<section className='order-form section flex-wrapper'>
-				<h2 className='order-form__heading'>Create an order</h2>
+			<section className='order-form section'>
+				<h2 className='section__heading'>Create an order</h2>
+				<hr className='section__hr' />
 				<Select
-					className='order-form__select select'
+					className='select'
 					options={securityOptions}
 					isSearchable={true}
 					onChange={handleSecurityChange}
@@ -215,7 +217,7 @@ const Order = () => {
 					ref={securitySelectRef}
 				/>
 				<Select
-					className='order-form__select select'
+					className='select'
 					options={orderOptions}
 					defaultValue={orderOptions[0]}
 					onChange={handleOrderChange}
