@@ -148,12 +148,13 @@ body {
 
 .table__heading {
 	font-weight: bold;
-	padding: 0.5rem;
+	padding: 1rem 0.5rem;
+	text-align: left;
 }
 
 .table__data {
 	border-bottom: 1px solid #ddd;
-	padding: 0.5rem;
+	padding: 1rem 0.5rem;
 }
 
 .select {
@@ -244,6 +245,16 @@ body {
 
 .modal__heading {
 	font-size: 2rem;
+}
+
+@media only screen and (max-width: 335px) {
+	.table__heading {
+		padding: 1rem 0.2rem;
+	}
+
+	.table__data {
+		padding: 1rem 0.2rem;
+	}
 }
 
 @media only screen and (min-width: 700px) {
