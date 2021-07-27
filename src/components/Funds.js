@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addCash } from '../redux/cashSlice'
 import { setNetWorth } from '../redux/netWorthSlice'
