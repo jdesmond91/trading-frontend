@@ -6,10 +6,10 @@ describe('Trading Integration Tests', () => {
 
 	describe('Funds Testing', () => {
 		beforeEach(() => {
-			cy.intercept('GET', '/api/securities/equity').as('getSecurities')
-			cy.intercept('GET', '/api/positions/cash').as('getCash')
-			cy.intercept('GET', '/api/positions/networth').as('getNetWorth')
-			cy.intercept('GET', '/api/positions').as('getPositions')
+			cy.intercept('GET', '/api/trading/securities/equity').as('getSecurities')
+			cy.intercept('GET', '/api/trading/positions/cash').as('getCash')
+			cy.intercept('GET', '/api/trading/positions/networth').as('getNetWorth')
+			cy.intercept('GET', '/api/trading/positions').as('getPositions')
 			cy.visit('http://localhost:3000/trading')
 			cy.wait(['@getSecurities', '@getCash', '@getNetWorth', '@getPositions'])
 		})
@@ -37,10 +37,10 @@ describe('Trading Integration Tests', () => {
 
 	describe('Order Testing', () => {
 		beforeEach(() => {
-			cy.intercept('GET', '/api/securities/equity').as('getSecurities')
-			cy.intercept('GET', '/api/positions/cash').as('getCash')
-			cy.intercept('GET', '/api/positions/networth').as('getNetWorth')
-			cy.intercept('GET', '/api/positions').as('getPositions')
+			cy.intercept('GET', '/api/trading/securities/equity').as('getSecurities')
+			cy.intercept('GET', '/api/trading/positions/cash').as('getCash')
+			cy.intercept('GET', '/api/trading/positions/networth').as('getNetWorth')
+			cy.intercept('GET', '/api/trading/positions').as('getPositions')
 			cy.visit('http://localhost:3000/trading/order')
 			cy.wait(['@getSecurities', '@getCash', '@getNetWorth', '@getPositions'])
 		})
