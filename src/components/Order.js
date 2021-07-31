@@ -50,9 +50,15 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 			<p className='section__text'>Security Price: {selected.price}</p>
 			<p className='section__text'>Quantity: {quantity}</p>
 			<p className='section__text'>Total: {selected.price * quantity}</p>
-			<p className='section__text'>Cash Available to Trade: {cash}</p>
+			<p className='section__text' data-cy='order-cash'>
+				Cash Available to Trade: {cash}
+			</p>
 			<p className='section__text message'>{message}</p>
-			<button onClick={handleSubmit} className='order-section__button button'>
+			<button
+				onClick={handleSubmit}
+				className='order-section__button button'
+				data-cy='order-submit'
+			>
 				Submit Order
 			</button>
 		</section>
@@ -252,7 +258,11 @@ const Order = () => {
 				<button className='button' onClick={handleModalClose}>
 					Create another order
 				</button>
-				<button className='button button--secondary' onClick={handleModalClose}>
+				<button
+					className='button button--secondary'
+					onClick={handleModalClose}
+					data-cy='back-portfolio'
+				>
 					<Link to='/'>Back to Portfolio</Link>
 				</button>
 			</Modal>

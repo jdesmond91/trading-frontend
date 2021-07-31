@@ -13,7 +13,7 @@ export const Modal = ({ isModalOpen, handleModalClose, children }) => {
 	return isModalOpen ? (
 		<div className='modal' ref={modalRef} onClick={handleClickAway}>
 			<div className='modal__inner'>
-				<button className='modal__close' onClick={handleModalClose}>
+				<button className='modal__close' onClick={handleModalClose} data-cy='modal-close'>
 					<span className='material-icons'>cancel</span>
 				</button>
 				<div className='modal__top'>

@@ -57,8 +57,9 @@ const FundsForm = () => {
 					autoComplete='off'
 					onChange={handleCashValueChange}
 					value={value}
+					data-cy='funds-input'
 				/>
-				<button id='submit' className='form__button button' type='submit'>
+				<button id='submit' className='form__button button' type='submit' data-cy='funds-submit'>
 					Add Funds
 				</button>
 				<p className='section__text message'>{message}</p>
