@@ -50,7 +50,7 @@ const App = () => {
 	}, [dispatch])
 
 	return (
-		<Router>
+		<Router basename='/trading'>
 			<Header />
 			<ScrollToTop />
 			<main>
