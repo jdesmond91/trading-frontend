@@ -35,14 +35,19 @@ const FundsForm = () => {
 
 	const handleFundsSubmit = async (event) => {
 		event.preventDefault()
-		try {
-			await positionService.depositCash(value)
-			dispatch(addCash(value))
-			dispatch(setNetWorth(await positionService.getNetWorth()))
-			resetFields()
-			handleModalOpen()
-		} catch (err) {
-			setMessage('Unable to complete deposit, please try again later!')
+
+		if (value) {
+			try {
+				await positionService.depositCash(value)
+				dispatch(addCash(value))
+				dispatch(setNetWorth(await positionService.getNetWorth()))
+				resetFields()
+				handleModalOpen()
+			} catch (err) {
+				setMessage('Unable to complete deposit, please try again later!')
+			}
+		} else {
+			setMessage('Please enter an amount to deposit!')
 		}
 	}
 
@@ -62,8 +67,8 @@ const FundsForm = () => {
 				<button id='submit' className='form__button button' type='submit' data-cy='funds-submit'>
 					Add Funds
 				</button>
-				<p className='section__text message'>{message}</p>
 			</form>
+			<p className='section__text message'>{message}</p>
 			<Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
 				<h2 className='modal__heading'>Success!</h2>
 				<p className='modal__text'>Your deposit was confirmed!</p>
