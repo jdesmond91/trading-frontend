@@ -9,6 +9,7 @@ import { setTransactions } from '../redux/transactionsSlice'
 import { setPositions } from '../redux/positionsSlice'
 import { Link } from 'react-router-dom'
 import Modal from './Modal'
+import round from '../utils/round'
 
 const OrderQuantity = ({
 	quantity,
@@ -49,7 +50,7 @@ const OrderPreview = ({ selected, quantity, cash, orderType, handleSubmit, messa
 			<p className='section__text'>Security: {selected.ticker}</p>
 			<p className='section__text'>Security Price: {selected.price}</p>
 			<p className='section__text'>Quantity: {quantity}</p>
-			<p className='section__text'>Total: {selected.price * quantity}</p>
+			<p className='section__text'>Total: {round(selected.price * quantity)}</p>
 			<p className='section__text' data-cy='order-cash'>
 				Cash Available to Trade: {cash}
 			</p>
