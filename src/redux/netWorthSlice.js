@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const netWorthSlice = createSlice({
 	name: 'netWorth',
 	initialState: {
-		value: 0,
+		value: { bookValue: 0, marketValue: 0 },
 	},
 	reducers: {
 		setNetWorth: (state, action) => {
