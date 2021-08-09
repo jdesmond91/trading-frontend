@@ -14,7 +14,7 @@ const Portfolio = () => {
 				<h1 className='section__heading'>Total Net Worth</h1>
 				<hr className='section__hr' />
 				<p className='section__main' data-cy='net-worth'>
-					${netWorth}
+					${netWorth.marketValue}
 				</p>
 			</section>
 
