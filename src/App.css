@@ -7,6 +7,8 @@
 	--main-brand-colour: #47625c;
 	--button-primary-colour: #186579;
 	--button-secondary-colour: #151919;
+	--text-color: rgb(44, 43, 43);
+	--text-color-light: rgb(128, 126, 126);
 }
 
 @keyframes pageTransition {
@@ -54,7 +56,7 @@ body {
 body {
 	font-family: 'Ubuntu', sans-serif;
 	background-color: rgb(255, 251, 251);
-	color: rgb(44, 43, 43);
+	color: var(--text-color);
 }
 
 .grid-container {
@@ -130,7 +132,9 @@ body {
 }
 
 .net-worth .section__main {
-	font-size: 5rem;
+	font-size: 3.5rem;
+	font-weight: bold;
+	color: var(--main-brand-colour);
 }
 
 .funds .section__main {
@@ -176,8 +180,26 @@ body {
 }
 
 .table__data {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1rem;
 	border-bottom: 1px solid #ddd;
-	padding: 1rem 0.5rem;
+	padding: 1rem 0;
+}
+
+.table__detail {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
+.table__detail span {
+	color: var(--text-color-light);
+}
+
+.table__inner {
+	display: flex;
+	justify-content: space-between;
 }
 
 .select {
