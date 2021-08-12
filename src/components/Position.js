@@ -14,7 +14,7 @@ const Position = () => {
 					{positions &&
 						positions.map(({ id, security, quantity, bookValue, marketValue }) => {
 							const difference = round(marketValue - bookValue)
-							const performance = round((marketValue + bookValue) / bookValue)
+							const performance = round(difference / bookValue) * 100
 							// if there is a net profit, then add a positive sign to the string
 							const differenceString = (difference) => {
 								return difference > 0
