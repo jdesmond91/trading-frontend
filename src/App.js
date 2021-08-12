@@ -20,29 +20,8 @@ const App = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			dispatch(setSecurities(await securityService.getSecurities()))
-		}
-
-		fetchData()
-	}, [dispatch])
-
-	useEffect(() => {
-		const fetchData = async () => {
 			dispatch(setCash(await positionService.getCash()))
-		}
-
-		fetchData()
-	}, [dispatch])
-
-	useEffect(() => {
-		const fetchData = async () => {
 			dispatch(setNetWorth(await positionService.getNetWorth()))
-		}
-
-		fetchData()
-	}, [dispatch])
-
-	useEffect(() => {
-		const fetchData = async () => {
 			dispatch(setPositions(await positionService.getPositions()))
 		}
 
