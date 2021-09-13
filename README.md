@@ -31,10 +31,10 @@ npm run start
 To get started with automated end to end tests 
 
 1. Use above instructions to start a local instance of the trading simulator
-2. In another terminal window, run the following. Make sure you already kicked off a local intance before running cypress:
+2. In another terminal window, run the following:
 
 ~~~
 npm run cypress:open
 ~~~
 
-This will open up a new instance of Chrome and kick off tests which I have designed to validate different functionalities of this application
+This will open up a new instance of Chrome and kick off tests which I have designed to validate different functionalities of this application. Make sure you have kicked off a local instance of the application before running Cypress
