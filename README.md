@@ -21,6 +21,8 @@ const baseUrl =
 
 ~~~
 npm install
+~~~
+~~~
 npm run start
 ~~~
 
