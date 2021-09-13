@@ -38,3 +38,8 @@ npm run cypress:open
 ~~~
 
 This will open up a new instance of Chrome and kick off tests which I have designed to validate different functionalities of this application. Make sure you have kicked off a local instance of the application before running Cypress
+
+## Future Updates
+1. More stocks to be able to trade
+2. User profiles and login functionality
+3. Pagination for transction history
