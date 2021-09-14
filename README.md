@@ -1,4 +1,4 @@
-# Trading Simulator - https://jonathandesmond.me/trading
+# Trading Simulator - Frontend - https://jonathandesmond.me/trading
 
 This application lets you deposit cash and place simulated trades on a couple popular stocks. From there you can check on the portfolio and see how well your holdings are doing as well as view your transaction history.
 
